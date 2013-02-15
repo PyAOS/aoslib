@@ -1,0 +1,48 @@
+! --- Manual Additions    
+        subroutine forecast(yr,mon,day,hr,min_bn,stnid,snow,slat,slon,p,ht,t,td,nlvls,ftmax,status) ! in :aoslib:forecast.f
+            integer :: yr
+            integer :: mon
+            integer :: day
+            integer :: hr
+            integer :: min_bn
+            character*4 :: stnid
+            integer :: snow
+            real :: slat
+            real :: slon
+            real dimension(nlvls) :: p
+            real dimension(nlvls),depend(nlvls) :: ht
+            real dimension(nlvls),depend(nlvls) :: t
+            real dimension(nlvls),depend(nlvls) :: td
+            integer, optional,check(len(p)>=nlvls),depend(p) :: nlvls=len(p)
+            real :: ftmax
+            integer :: status
+        end subroutine forecast
+        subroutine mxtp(ansol,deltap,sfcp,p2,tl,deltaz,lvl,ctmax) ! in :aoslib:mxtp.f
+            real :: ansol
+            real :: deltap
+            real :: sfcp
+            real :: p2
+            real dimension(*) :: tl
+            real dimension(*) :: deltaz
+            integer :: lvl
+            real :: ctmax
+        end subroutine mxtp
+        subroutine rhbar(endlvl,mrh,nclyr,sfcp,p,tl,tdl) ! in :aoslib:rhbar.f
+            real dimension(*) :: endlvl
+            integer dimension(*) :: mrh
+            integer :: nclyr
+            real :: sfcp
+            real dimension(*) :: p
+            real dimension(*) :: tl
+            real dimension(*) :: tdl
+        end subroutine rhbar
+        subroutine solax(julday,month,slat,tyminc,tstart,tstop,tsrad) ! in :aoslib:solax.f
+            integer*2 :: julday
+            integer*2 :: month
+            real*4 :: slat
+            integer*2 :: tyminc
+            integer*2 :: tstart
+            integer*2 :: tstop
+            real*4 :: tsrad
+        end subroutine solax
+! -- END MANUAL ADDITIONS
