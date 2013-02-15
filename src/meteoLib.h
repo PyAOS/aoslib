@@ -21,6 +21,7 @@ static int RidgeFun __UNUSED =14;
 static int VcontFun __UNUSED =17;
 
 /* Not called from Fortran or implemented in Fortran */
+/*
 extern "C" {
   float calcHeatIndex (float temp, float dewPoint);
   float calcWindChill (float temp, float windSpd);
@@ -38,6 +39,7 @@ extern "C" {
                     int nx, int ny, int nz,
                     float * vcC, int nc, float * paramC);
 }
+*/
 
 EXT_FTN (void, g2gkinematics, (float * Udx, float * Vdy, float * Par,
                                float * SpaX, float * SpaY,
