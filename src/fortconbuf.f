@@ -326,7 +326,7 @@ c Programmer's Reference.
           val1=1e37
           val2=-1e37
           mirror=(xmode.eq.2)
-          ascend=((seed(1).gt.seed(mmm)).xor.mirror)
+          ascend=((seed(1).gt.seed(mmm)).neqv.mirror)
           If (scale.lt.0.0 .and. .not.mirror) ascend=.not.ascend
           If (mirror .and. scale.ge.0.0) Then
               sedsgn=-1
