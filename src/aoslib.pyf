@@ -562,14 +562,16 @@ python module _aoslib ! in
             real :: crstot
             real :: vertot
         end subroutine totals
-        subroutine calctd(t,rh,mni,ni,nj,td) ! in :_aoslib:calctd.f
-            real dimension(mni,nj) :: t
-            real dimension(mni,nj),depend(mni,nj) :: rh
-            integer, optional,check(shape(t,0)==mni),depend(t) :: mni=shape(t,0)
-            integer :: ni
-            integer, optional,check(shape(t,1)==nj),depend(t) :: nj=shape(t,1)
-            real dimension(mni,nj),depend(mni,nj) :: td
+        
+        subroutine calctd(t,rh,mni,ni,nj,td) ! in calctd.f
+            real dimension(mni,nj), intent(in) :: t
+            real dimension(mni,nj), intent(in) :: rh
+            integer intent(hide), depend(t) :: mni=shape(t,0)
+            integer intent(hide), depend(t) :: nj=shape(t,1)
+            integer optional, check(ni<=shape(t,0)) :: ni=shape(t,0)
+            real dimension(mni,nj), intent(out), depend(mni, nj) :: td
         end subroutine calctd
+        
         subroutine frzlev(elev,p,ht,t,nlvls,pfrz,hfrz) ! in :_aoslib:frzlev.f
             real :: elev
             real dimension(nlvls) :: p
