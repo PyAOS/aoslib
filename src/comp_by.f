@@ -75,7 +75,7 @@ c
         if (control.gt.-3181 .and. control.lt.3181 .and.
      &      control.ne.0) Then
             if (control.lt.0) ss = -1
-            conint = jint(ss*control)
+            conint = int(ss*control)
             if (conint.ne.ss*control) norml = .false.
             vecout = conint/1000
             conint = (conint-1000*vecout)*ss

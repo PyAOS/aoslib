@@ -61,14 +61,14 @@ C temperature line going thru the LNEC temperature down to the surface.
        Else
           Zlnec = elev + 914.36
        Endif
-d	Type *,'elev',elev,' m;',elev*3.28084,' ft'
-d	Type *,'Zlnec',Zlnec,' m;',Zlnec*3.28084,' ft'
+	PRINT *,'elev',elev,' m;',elev*3.28084,' ft'
+	PRINT *,'Zlnec',Zlnec,' m;',Zlnec*3.28084,' ft'
 
 C Compute the potential temp. of the forecast max temperature, then run up the
 C sounding and locate or interpolate the height and pressure of the Lxec.
-d	TYPE *,'P sfc (mb) and fcst tmax (K)',P(1),Tpmax
+	PRINT *,'P sfc (mb) and fcst tmax (K)',P(1),Tpmax
 	Ptlxec=Tpmax*((1000.0/P(1))**0.286)
-d	TYPE *,'Ptlxec (K)',Ptlxec
+	PRINT *,'Ptlxec (K)',Ptlxec
 
 c initialize Plnec, Plxec, &Z500
       i=1
@@ -106,26 +106,26 @@ C truncated at 500 mb/18000 ft.
 	 Endif
 	EndDo
 
-d	Type *,'Plxec,Zlxec and Tlxec are',Plxec,'mb',Zlxec,'m',Tlxec,'K'
-d	Type *,'P(1),Plnec,Zlnec,Tlnec are',P(1),Plnec,Zlnec,Tlnec
+	PRINT *,'Plxec,Zlxec and Tlxec are',Plxec,'mb',Zlxec,'m',Tlxec,'K'
+	PRINT *,'P(1),Plnec,Zlnec,Tlnec are',P(1),Plnec,Zlnec,Tlnec
 
 C  compute the potential temperature of the trigger temperature.
 	ThetaTrig=Tlnec*((1000.0/Plnec)**0.286)
-d	Type *,'thetatrig & p(1) is',Thetatrig,P(1)
+	PRINT *,'thetatrig & p(1) is',Thetatrig,P(1)
 	TrigTemp=((ThetaTrig)*((p(1)/1000.)**.286))-273.15
-d	TYPE *,'trigtemp is(C),Tpmaxis(K)',TrigTemp,Tpmax
+	PRINT *,'trigtemp is(C),Tpmaxis(K)',TrigTemp,Tpmax
 
 C  Truncate the height of the LXEC to 18000 ft, due to FAA positive controlled
 C  airspace or possible soaring flight in IFR conditions by penetrating into
 C  clouds. 
 	If(Plxec.lt.500.) Then
-d	 Type *,'Truncated at 500mb.'
+	 PRINT *,'Truncated at 500mb.'
 	 Zlxec=Z500
 	 Tlxec=T500
 	 Plxec=P500
 	Endif
-d	Type *,'LXEC Hgt (m), P (mb), T (K):',Zlxec,Plxec,Tlxec
-d	Type *,'LNEC P (mb), T (K):',Plnec,Tlnec
+	PRINT *,'LXEC Hgt (m), P (mb), T (K):',Zlxec,Plxec,Tlxec
+	PRINT *,'LNEC P (mb), T (K):',Plnec,Tlnec
  
 C  Compute the Soaring Index if the fcst max temperature is equal to or exceeds
 C  the trigger temperature.
@@ -134,7 +134,7 @@ C  the trigger temperature.
 	Else
 	 Soarindx=flag
 	Endif
-d	TYPE *,'Soaring index (ft/min) is',Soarindx
+	PRINT *,'Soaring index (ft/min) is',Soarindx
 
 	Return
 	End

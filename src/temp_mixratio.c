@@ -8,7 +8,7 @@
 * output : tempmr
 * Author:  Dale Perry
 ***************************************************************************/
-void FTN_MANGLE (temp_mixratio) ( float * press,
+void FTN_MANGLE (temp_mixratio_) ( float * press,
                                   float * mixratio, float * tempmr )
     {
     float e = (*press * *mixratio)/(0.622 + *mixratio);

@@ -60,7 +60,7 @@ c
 c
 c.....	Start.  First calculate the potential vorticity through the layer,
 c....   use u and v as work arrays.
-	call pv(p_up,p_low,o_up,o_low,pvort,mni,ni,nj,
+	call calcpv(p_up,p_low,o_up,o_low,pvort,mni,ni,nj,
      &          u_up,v_up,u_low,v_low,u,v,dx,dy,coriolis)
 c
 c.....	Now calculate a mean wind through the layer.
