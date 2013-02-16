@@ -6,12 +6,12 @@
 /* This routine calculates the saturation tempurature of an equivalent
    temperature at given pressure using the adiabatic definition */
 
-float FTN_MANGLE (temp_of_te) (float * te, float * press)
+float FTN_MANGLE (temp_of_te_) (float * te, float * press)
     {
     static const int tmin = 193;
     static const int tmax = 333;
     static const int nval = 1+tmax-tmin;
-    static float TeData[7*nval];
+    static float TeData[7*141];     // replace 141 by nval
     static float * Te1000 = 0;
     static float * Te850 = 0;
     static float * Te700 = 0;
