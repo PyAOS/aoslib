@@ -129,4 +129,3 @@ should be investigated.
 
 The signature in `aoslib.py` should be modified to correctly identify
 input/output parameter, intent, etc.
->>>>>>> Updated README.rst
