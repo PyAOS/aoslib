@@ -21,16 +21,32 @@ static int RidgeFun __UNUSED =14;
 static int VcontFun __UNUSED =17;
 
 /* Not called from Fortran or implemented in Fortran */
-/*
 extern "C" {
   float calcHeatIndex (float temp, float dewPoint);
   float calcWindChill (float temp, float windSpd);
+  void heliComp(float ** u, float ** v, float * umot, float * vmot, 
+                int mnx, int nx, int ny, int nz, 
+                float * heli);
   void defineSlice(float ** vc3d, float ** param3d,
                    int mnx, int nx, int ny, int nz, float param, int sense,
                    float * vc2d);
+  void defineSliceD(float ** vc3d, int * dimvc, float ** param3d, int * dimpar,
+                    int mnx, int nx, int ny, int nz, float param, int sense,
+                    float * vc2d);
   void createSlice(float ** vc3d, float * vc2d, float ** slice3d, 
                    int mnx, int nx, int ny, int nz, int sense,
                    float * slice);
+  void createSliceD(float ** vc3d, int * dim3,
+                    float * vc2d, int dim2, float ** slice3d, 
+                    int mnx, int nx, int ny, int nz, int sense,
+                    float * slice);
+  void sampleSlice(float ** vc3d, float * vc2d, float ** slice3d, 
+                   int mnx, int nx, int ny, int nz, int sense, int hyb,
+                   float * slice);
+  void sampleSliceD(float ** vc3d, int * dim3,
+                    float * vc2d, int dim2, float ** slice3d, 
+                    int mnx, int nx, int ny, int nz, int sense, int hyb,
+                    float * slice);
   void defineSlices(float * vc3d, int senseA,
                     float * param3d, int senseB,
                     int nx, int ny, int nz,
@@ -38,8 +54,19 @@ extern "C" {
   void createSlices(float * vc3d, float * param3d, int sense,
                     int nx, int ny, int nz,
                     float * vcC, int nc, float * paramC);
+  void capeFunc(float usetv, float ** p_dat, float ** tve_dat,
+                float * p0, float * th0, float * sh0, 
+                int mnx, int nx, int ny, int nz, 
+                float * cape_dat, float * cin_dat);
+  void capeFuncTop(float usetv, float ** p_dat, float ** tve_dat,
+                   float * p0, float * th0, float * sh0, 
+                   int mnx, int nx, int ny, int nz, 
+                   float * cape_dat, float * cin_dat, float * ptop);
+  void dcapeFunc(float usetv, float ** p_dat, float ** t_dat, float ** td_dat,
+                 float * p0, float * th0, float * sh0, 
+                 int mnx, int nx, int ny, int nz, 
+                 float max_evap, float max_rh, float * dcape_dat);
 }
-*/
 
 EXT_FTN (void, g2gkinematics, (float * Udx, float * Vdy, float * Par,
                                float * SpaX, float * SpaY,
@@ -57,6 +84,9 @@ EXT_FTN (void, add_by_cnst, (float * a, float * cnst, float * result,
 
 EXT_FTN (void, mult_by_cnst, (float * a, float * cnst, float * result,
                               int * mni, int * ni, int * nj))
+
+EXT_FTN (void, max_min, (float * a, float * b, float * result,
+                         int * mni, int * ni, int * nj, int * mode))
 
 EXT_FTN (void, add_aray, (float * a, float * b, float * result,
                           int * mni, int * ni, int * nj, int * mode))
@@ -95,7 +125,12 @@ EXT_FTN (void, calctd2, (float * p, float * t, float * q,
 EXT_FTN (void, calctw, (float * p, float * t, float * rh,
                         int * mni, int * ni, int * nj, float * tw))
 
+EXT_FTN (float, mytw, (float * t, float * td, float * p));
+
 EXT_FTN (void, spechum, (float * p, float * t, float * rh,
+                         int * mni, int * ni, int * nj, float * q))
+
+EXT_FTN (void, mixrat, (float * p, float * t, float * rh,
                          int * mni, int * ni, int * nj, float * q))
 
 EXT_FTN (void, spechum2, (float * p, float * td,
@@ -116,6 +151,9 @@ EXT_FTN (void, calcrh2, (float * p, float * t, float * q,
 EXT_FTN (void, windspeed, (float * u, float * v, float * ff,
                            int * mni, int * ni, int * nj))
 
+EXT_FTN (void, winddir, (float * u, float * v, float * ff,
+                           int * mni, int * ni, int * nj))
+
 EXT_FTN (void, temp2theta, (float * p, int * aflgp, float * t, int * aflgt, 
                             float * theta, int * mni, int * ni, int * nj))
 
@@ -126,7 +164,10 @@ EXT_FTN (void, theta2temp, (float * p, int * aflgp, float * theta,
 EXT_FTN (void, tv2temp, (float * tv, float * q,
                          int * mni, int * ni, int * nj, float * t))
 
-EXT_FTN (void, calctv, (float * t, float * q,
+EXT_FTN (void, calctv, (float * p, float * t, float * rh,
+                        int * mni, int * ni, int * nj, float * tv))
+
+EXT_FTN (void, calctv2, (float * t, float * q,
                         int * mni, int * ni, int * nj, float * tv))
 
 EXT_FTN (void, calcpv, (float * p_up, float * p_low,
@@ -153,6 +194,10 @@ EXT_FTN (void, lapserate, (float * tlo, float * pzlo, float * thi,
 EXT_FTN (void, calcli, (float * p, float * t, float * rh,
                         float * t5, float * p5,
                         int * mni, int * ni, int * nj, float * li))
+
+EXT_FTN (void, sweatidx, (float * tt, float * td8,
+                          float * u8, float * v8, float * u5, float * v5,
+                          int * mni, int * ni, int * nj, float * q))
 
 EXT_FTN (void, derivative, (float * a1, float * a2, float * b1, float * b2,
                             float * result, int * mni, int * ni, int * nj))
@@ -184,6 +229,15 @@ EXT_FTN (void, powercalc, (float * a, float * b,
 
 EXT_FTN (void, mslp2thkns, (float * mslp, float * hgt,
                             float * thkns, int * mni, int * ni, int * nj))
+
+EXT_FTN (void, nadgdt, (float * u, float * v, float * a,
+                        int * mni, int * ni, int * nj, 
+                        float * dx, float * dy,
+                        float * dadxdt, float * dadydt))
+
+EXT_FTN (void, comp_by, (float * u, float * v, float * uu, float * vv,
+                         int * mni, int * ni, int * nj, float * control,
+                         float * comp, float * comp2))
 
 EXT_FTN (void, setqsmooth, (int * npass, float * smthwgt))
 
@@ -316,7 +370,8 @@ EXT_FTN (void, lclpar, (float * MIX, float * TS,
 EXT_FTN (void, lfcpar, (float * EPTPAR, float * PCB,
                         float * TCB, float * HCB, float * T1, float * T2,
                         float * P1, float * HT1, int * NPAR,
-                        float * PLFC, float * HLFC, float * TLFC))
+                        float * PLFC1, float * HLFC1, float * TLFC1,
+                        float * PLFC2, float * HLFC2, float * TLFC2))
 
 EXT_FTN (void, ddff, (float * U, float * V, float * DIR,
                       float * SPD, int * NLVLS))
@@ -333,14 +388,14 @@ EXT_FTN (void, negarea, (float * PCB, float * TCB, float * HCB, float * PLFC,
                          float * THDPAR, float * EPTPAR,
                          float * P, float * HT, float * TE,
                          float * TP, int * NPAR, 
-                         float * NEGBUOY))
+                         float * CINFRMCAPE, float * NEGBUOY))
 
 EXT_FTN (void, posarea, (float * PLFC, float * PEQLEV,
                          float * TLFC, float * TEQLEV,
                          float * HLFC, float * HEQLEV,
                          float * EPTPAR, float * P, 
                          float * HT, float * TE,
-                         float * TP, int * NPAR, float * BUOY))
+                         float * TP, int * NPAR, float * BUOY, float * CIN))
 
 EXT_FTN (void, totals, (float * P, float * T, float * TD,
                         int * NLVLS, float * TOTIDX,
