@@ -21,7 +21,9 @@ static int RidgeFun __UNUSED =14;
 static int VcontFun __UNUSED =17;
 
 /* Not called from Fortran or implemented in Fortran */
+#ifdef __cplusplus
 extern "C" {
+#endif
   float calcHeatIndex (float temp, float dewPoint);
   float calcWindChill (float temp, float windSpd);
   void heliComp(float ** u, float ** v, float * umot, float * vmot, 
@@ -66,7 +68,9 @@ extern "C" {
                  float * p0, float * th0, float * sh0, 
                  int mnx, int nx, int ny, int nz, 
                  float max_evap, float max_rh, float * dcape_dat);
+#if __cplusplus
 }
+#endif
 
 EXT_FTN (void, g2gkinematics, (float * Udx, float * Vdy, float * Par,
                                float * SpaX, float * SpaY,
