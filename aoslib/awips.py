@@ -1,15 +1,8 @@
 """
-======
-aoslib
-======
-
-aoslib is a Python library of standard atmospheric and oceanic sciences
-calculation routines.  It exists mainly so we're all not writing our
-own routines to calculate potential temperature, isentropic potential
-vorticity, etc.
+Python front end to routines in AWIPS I
 """
 
-import _aoslib
+import _awips
 
 
 def calctd(t, rh, **kwargs):
@@ -41,4 +34,4 @@ def calctd(t, rh, **kwargs):
     array([[ 288.70455933]], dtype=float32)
 
     """
-    return _aoslib.calctd(t, rh, **kwargs)
+    return _awips.calctd(t, rh, **kwargs)

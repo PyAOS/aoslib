@@ -37,3 +37,6 @@ nosetests.xml
 
 # project specific
 /doc/source/generated
+aoslib/_awips-f2pywrappers.f
+aoslib/_awipsmodule.c
+aoslib/version.py

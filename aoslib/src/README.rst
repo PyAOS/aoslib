@@ -8,12 +8,12 @@ routines developed by the Global Systems Division of the Earth System
 Research Laboratory of NOAA and are part of AWIPS I.
 
 
-Building the aoslib library
-===========================
+Building the _awips.so module by hand
+=====================================
 
-aoslib is built using f2py:
+the _awips.so module can be built using f2py:
 
-f2py -c aoslib.pyf --f77flags="-fno-range-check"                    \
+f2py -c _awips.pyf --f77flags="-fno-range-check"                    \
 addaray.f        dgeocomps.f           meanomega.f    smooth.f      \
 addbycnst.f      divaray.f             mixrat.f       solax.f       \
 alt2press.f      dmixr.f               mslp2thkns.f   spechum2.f    \
@@ -54,7 +54,7 @@ Recreating the f2py signature file
 
 The f2py signature file can be recreated using the following command
 
-f2py -m _aoslib -h aoslib.pyf                                       \
+f2py -m _awips -h _awips.pyf                                        \
 addaray.f        dgeocomps.f           meanomega.f    smooth.f      \
 addbycnst.f      divaray.f             mixrat.f                     \
 alt2press.f      dmixr.f               mslp2thkns.f   spechum2.f    \
@@ -91,7 +91,7 @@ derived_icing.f  maxmin.f              slqvect.f
 
 The signatures for the routines in `forecast.f`, `mxtp.f`, `rhbar.f`, and 
 `solax.f` were manually created and must be added.  Copy and paste the text in
-the manual_additions.pyf file into the aoslib.pyf file before the 
+the manual_additions.pyf file into the _awips.pyf file before the 
 `end interface` line.
 
 Notes and To Do
@@ -127,6 +127,5 @@ Verify that these changes are required and correct.
 The flag --fno-range-check is required to compile the file `fortconbuf.f`, this
 should be investigated.
 
-The signature in `aoslib.py` should be modified to correctly identify
+The signature in `_awips.pyf` should be modified to correctly identify
 input/output parameter, intent, etc.
->>>>>>> Updated README.rst
