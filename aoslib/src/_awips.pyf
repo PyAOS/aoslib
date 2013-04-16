@@ -1,7 +1,7 @@
 !    -*- f90 -*-
 ! Note: the context of this file is case sensitive.
 
-python module _aoslib ! in 
+python module _awips ! in 
     interface  ! in :_aoslib
         subroutine add_aray(a,b,result,mni,ni,nj,mode) ! in :_aoslib:addaray.f
             real dimension(mni,nj) :: a
@@ -1423,7 +1423,7 @@ python module _aoslib ! in
 ! -- END MANUAL ADDITIONS
 
     end interface 
-end python module _aoslib
+end python module _awips
 
 ! This file was auto-generated with f2py (version:2).
 ! See http://cens.ioc.ee/projects/f2py2e/
