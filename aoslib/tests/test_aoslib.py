@@ -922,8 +922,6 @@ def test_thetawa():
     assert_array_equal(ptw, test_ptw)
     assert_array_equal(pti, test_pti)
 
-#def test_cgp():
-
 def test_cclpar():
     p = np.array([841.0, 700.0,  500.0,  400.0, 300.0,  250.0,  200.0,  150.0,  100.0,
                  70.00,  50.00, 30.00,  20.00], dtype = 'float32')
