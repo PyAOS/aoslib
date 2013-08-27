@@ -1,11 +1,12 @@
 """ Unit tests for aoslib.py """
 
 import numpy as np
-from numpy.testing import assert_array_equal, assert_allclose
+from numpy.testing import assert_allclose
 
 import aoslib
 
 verbose = 1
+ATOL = 1e-3     # default absolute tolerence
 
 
 def test_calctd():
@@ -26,10 +27,10 @@ def test_calctd():
         print aoslib.calctd(t, rh, ni=2)
         print aoslib.calctd(t, rh, ni=1)
 
-    assert_array_equal(aoslib.calctd(t, rh), three_rows)
-    assert_array_equal(aoslib.calctd(t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calctd(t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calctd(t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calctd(t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctd(t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctd(t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calctd(t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_calctd2():
@@ -53,10 +54,10 @@ def test_calctd2():
         print aoslib.calctd2(p, t, q, ni=2)
         print aoslib.calctd2(p, t, q, ni=1)
 
-    assert_array_equal(aoslib.calctd2(p, t, q), three_rows)
-    assert_array_equal(aoslib.calctd2(p, t, q, ni=3), three_rows)
-    assert_array_equal(aoslib.calctd2(p, t, q, ni=2), two_rows)
-    assert_array_equal(aoslib.calctd2(p, t, q, ni=1), one_row)
+    assert_allclose(aoslib.calctd2(p, t, q), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctd2(p, t, q, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctd2(p, t, q, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calctd2(p, t, q, ni=1), one_row, atol=ATOL)
 
 
 def test_calccondpr():
@@ -81,10 +82,10 @@ def test_calccondpr():
         print aoslib.calccondpr(p, t, rh, ni=2)
         print aoslib.calccondpr(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.calccondpr(p, t, rh), three_rows)
-    assert_array_equal(aoslib.calccondpr(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calccondpr(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calccondpr(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calccondpr(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calccondpr(p, t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calccondpr(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calccondpr(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_calccondprdef():
@@ -112,10 +113,11 @@ def test_calccondprdef():
         print aoslib.calccondprdef(p, t, rh, ni=2)
         print aoslib.calccondprdef(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.calccondprdef(p, t, rh), three_rows)
-    assert_array_equal(aoslib.calccondprdef(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calccondprdef(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calccondprdef(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calccondprdef(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calccondprdef(p, t, rh, ni=3), three_rows,
+                    atol=ATOL)
+    assert_allclose(aoslib.calccondprdef(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calccondprdef(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_alt2press():
@@ -142,10 +144,10 @@ def test_alt2press():
         print aoslib.alt2press(alt, z, ni=2)
         print aoslib.alt2press(alt, z, ni=1)
 
-    assert_array_equal(aoslib.alt2press(alt, z), three_rows)
-    assert_array_equal(aoslib.alt2press(alt, z, ni=3), three_rows)
-    assert_array_equal(aoslib.alt2press(alt, z, ni=2), two_rows)
-    assert_array_equal(aoslib.alt2press(alt, z, ni=1), one_row)
+    assert_allclose(aoslib.alt2press(alt, z), three_rows, atol=ATOL)
+    assert_allclose(aoslib.alt2press(alt, z, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.alt2press(alt, z, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.alt2press(alt, z, ni=1), one_row, atol=ATOL)
 
 
 def test_calcli():
@@ -184,12 +186,12 @@ def test_calcli():
         print aoslib.calcli(p, t, rh, t5, p5=400)
         print aoslib.calcli(p, t, rh, t5, p5=600)
 
-    assert_array_equal(aoslib.calcli(p, t, rh, t5), three_rows)
-    assert_array_equal(aoslib.calcli(p, t, rh, t5, ni=3), three_rows)
-    assert_array_equal(aoslib.calcli(p, t, rh, t5, ni=2), two_rows)
-    assert_array_equal(aoslib.calcli(p, t, rh, t5, ni=1), one_row)
-    assert_array_equal(aoslib.calcli(p, t, rh, t5, p5=400), p400)
-    assert_array_equal(aoslib.calcli(p, t, rh, t5, p5=600), p600)
+    assert_allclose(aoslib.calcli(p, t, rh, t5), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcli(p, t, rh, t5, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcli(p, t, rh, t5, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calcli(p, t, rh, t5, ni=1), one_row, atol=ATOL)
+    assert_allclose(aoslib.calcli(p, t, rh, t5, p5=400), p400, atol=ATOL)
+    assert_allclose(aoslib.calcli(p, t, rh, t5, p5=600), p600, atol=ATOL)
 
 
 def test_calcdpd():
@@ -218,10 +220,10 @@ def test_calcdpd():
         print aoslib.calcdpd(t, rh, ni=2)
         print aoslib.calcdpd(t, rh, ni=1)
 
-    assert_array_equal(aoslib.calcdpd(t, rh), three_rows)
-    assert_array_equal(aoslib.calcdpd(t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calcdpd(t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calcdpd(t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calcdpd(t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcdpd(t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcdpd(t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calcdpd(t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_calcrh():
@@ -250,10 +252,10 @@ def test_calcrh():
         print aoslib.calcrh(t, td, ni=2)
         print aoslib.calcrh(t, td, ni=1)
 
-    assert_array_equal(aoslib.calcrh(t, td), three_rows)
-    assert_array_equal(aoslib.calcrh(t, td, ni=3), three_rows)
-    assert_array_equal(aoslib.calcrh(t, td, ni=2), two_rows)
-    assert_array_equal(aoslib.calcrh(t, td, ni=1), one_row)
+    assert_allclose(aoslib.calcrh(t, td), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcrh(t, td, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcrh(t, td, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calcrh(t, td, ni=1), one_row, atol=ATOL)
 
 
 def test_calcrh2():
@@ -284,10 +286,10 @@ def test_calcrh2():
         print aoslib.calcrh2(p, t, q, ni=2)
         print aoslib.calcrh2(p, t, q, ni=1)
 
-    assert_array_equal(aoslib.calcrh2(p, t, q), three_rows)
-    assert_array_equal(aoslib.calcrh2(p, t, q, ni=3), three_rows)
-    assert_array_equal(aoslib.calcrh2(p, t, q, ni=2), two_rows)
-    assert_array_equal(aoslib.calcrh2(p, t, q, ni=1), one_row)
+    assert_allclose(aoslib.calcrh2(p, t, q), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcrh2(p, t, q, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcrh2(p, t, q, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calcrh2(p, t, q, ni=1), one_row, atol=ATOL)
 
 
 def test_calcthetae():
@@ -313,10 +315,10 @@ def test_calcthetae():
         print aoslib.calcthetae(p, t, rh, ni=2)
         print aoslib.calcthetae(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.calcthetae(p, t, rh), three_rows)
-    assert_array_equal(aoslib.calcthetae(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calcthetae(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calcthetae(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calcthetae(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcthetae(p, t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcthetae(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calcthetae(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_calcthetae2():
@@ -345,10 +347,10 @@ def test_calcthetae2():
         print aoslib.calcthetae2(p, t, td, ni=2)
         print aoslib.calcthetae2(p, t, td, ni=1)
 
-    assert_array_equal(aoslib.calcthetae2(p, t, td), three_rows)
-    assert_array_equal(aoslib.calcthetae2(p, t, td, ni=3), three_rows)
-    assert_array_equal(aoslib.calcthetae2(p, t, td, ni=2), two_rows)
-    assert_array_equal(aoslib.calcthetae2(p, t, td, ni=1), one_row)
+    assert_allclose(aoslib.calcthetae2(p, t, td), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcthetae2(p, t, td, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calcthetae2(p, t, td, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calcthetae2(p, t, td, ni=1), one_row, atol=ATOL)
 
 
 def test_calctv():
@@ -376,10 +378,10 @@ def test_calctv():
         print aoslib.calctv(p, t, rh, ni=2)
         print aoslib.calctv(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.calctv(p, t, rh), three_rows)
-    assert_array_equal(aoslib.calctv(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calctv(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calctv(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calctv(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctv(p, t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctv(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calctv(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_calctv2():
@@ -406,10 +408,10 @@ def test_calctv2():
         print aoslib.calctv2(t, q, ni=2)
         print aoslib.calctv2(t, q, ni=1)
 
-    assert_array_equal(aoslib.calctv2(t, q), three_rows)
-    assert_array_equal(aoslib.calctv2(t, q, ni=3), three_rows)
-    assert_array_equal(aoslib.calctv2(t, q, ni=2), two_rows)
-    assert_array_equal(aoslib.calctv2(t, q, ni=1), one_row)
+    assert_allclose(aoslib.calctv2(t, q), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctv2(t, q, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctv2(t, q, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calctv2(t, q, ni=1), one_row, atol=ATOL)
 
 
 def test_calctw():
@@ -438,10 +440,10 @@ def test_calctw():
         print aoslib.calctw(p, t, rh, ni=2)
         print aoslib.calctw(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.calctw(p, t, rh), three_rows)
-    assert_array_equal(aoslib.calctw(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.calctw(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.calctw(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.calctw(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctw(p, t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.calctw(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.calctw(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_derived_icing():
@@ -469,10 +471,10 @@ def test_derived_icing():
         print aoslib.derived_icing(t, rh, ni=2)
         print aoslib.derived_icing(t, rh, ni=1)
 
-    assert_array_equal(aoslib.derived_icing(t, rh), three_rows)
-    assert_array_equal(aoslib.derived_icing(t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.derived_icing(t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.derived_icing(t, rh, ni=1), one_row)
+    assert_allclose(aoslib.derived_icing(t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.derived_icing(t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.derived_icing(t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.derived_icing(t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_hgt2pres():
@@ -499,10 +501,10 @@ def test_hgt2pres():
         print aoslib.hgt2pres(z, ni=2)
         print aoslib.hgt2pres(z, ni=1)
 
-    assert_array_equal(aoslib.hgt2pres(z), three_rows)
-    assert_array_equal(aoslib.hgt2pres(z, ni=3), three_rows)
-    assert_array_equal(aoslib.hgt2pres(z, ni=2), two_rows)
-    assert_array_equal(aoslib.hgt2pres(z, ni=1), one_row)
+    assert_allclose(aoslib.hgt2pres(z), three_rows, atol=ATOL)
+    assert_allclose(aoslib.hgt2pres(z, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.hgt2pres(z, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.hgt2pres(z, ni=1), one_row, atol=ATOL)
 
 
 def test_mixrat():
@@ -537,10 +539,10 @@ def test_mixrat():
         print aoslib.mixrat(p, t, rh, ni=2)
         print aoslib.mixrat(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.mixrat(p, t, rh), three_rows)
-    assert_array_equal(aoslib.mixrat(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.mixrat(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.mixrat(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.mixrat(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mixrat(p, t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mixrat(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.mixrat(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_mslp2thkns():
@@ -568,10 +570,10 @@ def test_mslp2thkns():
         print aoslib.mslp2thkns(mslp, hgt, ni=2)
         print aoslib.mslp2thkns(mslp, hgt, ni=1)
 
-    assert_array_equal(aoslib.mslp2thkns(mslp, hgt), three_rows)
-    assert_array_equal(aoslib.mslp2thkns(mslp, hgt, ni=3), three_rows)
-    assert_array_equal(aoslib.mslp2thkns(mslp, hgt, ni=2), two_rows)
-    assert_array_equal(aoslib.mslp2thkns(mslp, hgt, ni=1), one_row)
+    assert_allclose(aoslib.mslp2thkns(mslp, hgt), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=1), one_row, atol=ATOL)
 
 
 def test_press2alt():
@@ -599,10 +601,10 @@ def test_press2alt():
         print aoslib.press2alt(p, z, ni=2)
         print aoslib.press2alt(p, z, ni=1)
 
-    assert_array_equal(aoslib.press2alt(p, z,), three_rows)
-    assert_array_equal(aoslib.press2alt(p, z, ni=3), three_rows)
-    assert_array_equal(aoslib.press2alt(p, z, ni=2), two_rows)
-    assert_array_equal(aoslib.press2alt(p, z, ni=1), one_row)
+    assert_allclose(aoslib.press2alt(p, z,), three_rows, atol=ATOL)
+    assert_allclose(aoslib.press2alt(p, z, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.press2alt(p, z, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.press2alt(p, z, ni=1), one_row, atol=ATOL)
 
 
 def test_spechum():
@@ -639,10 +641,10 @@ def test_spechum():
         print aoslib.spechum(p, t, rh, ni=2)
         print aoslib.spechum(p, t, rh, ni=1)
 
-    assert_array_equal(aoslib.spechum(p, t, rh), three_rows)
-    assert_array_equal(aoslib.spechum(p, t, rh, ni=3), three_rows)
-    assert_array_equal(aoslib.spechum(p, t, rh, ni=2), two_rows)
-    assert_array_equal(aoslib.spechum(p, t, rh, ni=1), one_row)
+    assert_allclose(aoslib.spechum(p, t, rh), three_rows, atol=ATOL)
+    assert_allclose(aoslib.spechum(p, t, rh, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.spechum(p, t, rh, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.spechum(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
 def test_spechum2():
@@ -677,10 +679,10 @@ def test_spechum2():
         print aoslib.spechum2(p, td, ni=2)
         print aoslib.spechum2(p, td, ni=1)
 
-    assert_array_equal(aoslib.spechum2(p, td), three_rows)
-    assert_array_equal(aoslib.spechum2(p, td, ni=3), three_rows)
-    assert_array_equal(aoslib.spechum2(p, td, ni=2), two_rows)
-    assert_array_equal(aoslib.spechum2(p, td, ni=1), one_row)
+    assert_allclose(aoslib.spechum2(p, td), three_rows, atol=ATOL)
+    assert_allclose(aoslib.spechum2(p, td, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.spechum2(p, td, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.spechum2(p, td, ni=1), one_row, atol=ATOL)
 
 
 def test_tv2temp():
@@ -713,10 +715,10 @@ def test_tv2temp():
         print aoslib.tv2temp(tv, q, ni=2)
         print aoslib.tv2temp(tv, q, ni=1)
 
-    assert_array_equal(aoslib.tv2temp(tv, q), three_rows)
-    assert_array_equal(aoslib.tv2temp(tv, q, ni=3), three_rows)
-    assert_array_equal(aoslib.tv2temp(tv, q, ni=2), two_rows)
-    assert_array_equal(aoslib.tv2temp(tv, q, ni=1), one_row)
+    assert_allclose(aoslib.tv2temp(tv, q), three_rows, atol=ATOL)
+    assert_allclose(aoslib.tv2temp(tv, q, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.tv2temp(tv, q, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.tv2temp(tv, q, ni=1), one_row, atol=ATOL)
 
 
 def test_ptozsa():
@@ -734,7 +736,7 @@ def test_ptozsa():
     if verbose:
         print("ptozsa:")
         print(zout)
-    assert_array_equal(zout, test_out)
+    assert_allclose(zout, test_out, atol=1e-8, rtol=1e-5)
 
 
 def test_ztopsa():
@@ -754,7 +756,7 @@ def test_ztopsa():
     if verbose:
         print("ztopsa:")
         print(pout)
-    assert_array_equal(pout, test_out)
+    assert_allclose(pout, test_out, atol=ATOL)
 
 
 def test_dmixr():
@@ -776,8 +778,8 @@ def test_dmixr():
         print("dmixr:")
         print(mrw)
         print(mri)
-    assert_array_equal(mrw, test_mrw)
-    assert_array_equal(mri, test_mri)
+    assert_allclose(mrw, test_mrw, atol=ATOL)
+    assert_allclose(mri, test_mri, atol=ATOL)
 
 
 def test_dzdlnp():
@@ -798,7 +800,7 @@ def test_dzdlnp():
         print("dzdlnp:")
         print(dzdlp)
 
-    assert_array_equal(dzdlp, test_out)
+    assert_allclose(dzdlp, test_out, atol=ATOL)
 
 
 def test_radnorm():
@@ -817,7 +819,7 @@ def test_radnorm():
         print("radnorm:")
         print(rd)
 
-    assert_array_equal(rd, test_out)
+    assert_allclose(rd, test_out, atol=ATOL)
 
 
 def test_soldec():
@@ -836,7 +838,7 @@ def test_soldec():
         print("soldec:")
         print(sd)
 
-    assert_allclose(sd, test_out)
+    assert_allclose(sd, test_out, atol=ATOL)
 
 
 def test_timeq():
@@ -877,8 +879,8 @@ def test_esat():
         print(satk)
         print(satc)
 
-    assert_allclose(satk, test_out)
-    assert_allclose(satc, test_out)
+    assert_allclose(satk, test_out, atol=ATOL)
+    assert_allclose(satc, test_out, atol=ATOL)
 
 
 def test_tdofesat():
@@ -899,7 +901,7 @@ def test_tdofesat():
         print("tdofesat:")
         print(td)
 
-    assert_allclose(td, test_out)
+    assert_allclose(td, test_out, atol=ATOL)
 
 
 def test_pottemp():
@@ -925,8 +927,8 @@ def test_pottemp():
         print("pottemp:")
         print(ptw)
         print(pti)
-    assert_array_equal(ptw, test_ptw)
-    assert_array_equal(pti, test_pti)
+    assert_allclose(ptw, test_ptw, atol=ATOL)
+    assert_allclose(pti, test_pti, atol=ATOL)
 
 
 def test_thetawa():
@@ -952,8 +954,8 @@ def test_thetawa():
         print("thetawa:")
         print(ptw)
         print(pti)
-    assert_array_equal(ptw, test_ptw)
-    assert_array_equal(pti, test_pti)
+    assert_allclose(ptw, test_ptw, atol=ATOL)
+    assert_allclose(pti, test_pti, atol=ATOL)
 
 
 def test_cclpar():
@@ -976,5 +978,5 @@ def test_cclpar():
         print("cclpar:")
         print(res1)
         print(res2)
-    assert_array_equal(res1, test_res1)
-    assert_array_equal(res2, test_res2)
+    assert_allclose(res1, test_res1, atol=ATOL)
+    assert_allclose(res2, test_res2, atol=ATOL)
