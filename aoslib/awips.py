@@ -26,7 +26,7 @@ def calctd(t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -37,6 +37,7 @@ def calctd(t, rh, **kwargs):
 
     """
     return _awips.calctd(t, rh, **kwargs)
+
 
 def calctd2(p, t, q, **kwargs):
     """
@@ -61,7 +62,7 @@ def calctd2(p, t, q, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -73,9 +74,11 @@ def calctd2(p, t, q, **kwargs):
     """
     return _awips.calctd2(p, t, q, **kwargs)
 
+
 def calccondpr(p, t, rh, **kwargs):
     """
-    Calculate condensation pressure from the pressure, temperature, and relative humidity.  
+    Calculate condensation pressure from the pressure, temperature, and
+    relative humidity.
 
     Parameters
     ----------
@@ -86,7 +89,8 @@ def calccondpr(p, t, rh, **kwargs):
     rh : array_like, 2D
         Relative humidity (range 0 - 100).
     ni : int, optional
-        Number of rows to calculate condensation pressure for, default is all rows.
+        Number of rows to calculate condensation pressure for, default is all
+        rows.
 
     Returns
     -------
@@ -96,7 +100,7 @@ def calccondpr(p, t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -108,9 +112,11 @@ def calccondpr(p, t, rh, **kwargs):
     """
     return _awips.calccondpr(p, t, rh, **kwargs)
 
+
 def calccondprdef(p, t, rh, **kwargs):
     """
-    Calculate condensation pressure deficit from the pressure, temperature, and relative humidity.  
+    Calculate condensation pressure deficit from the pressure, temperature,
+    and relative humidity.
 
     Parameters
     ----------
@@ -121,7 +127,8 @@ def calccondprdef(p, t, rh, **kwargs):
     rh : array_like, 2D
         Relative humidity (range 0 - 100).
     ni : int, optional
-        Number of rows to calculate condensation pressure for, default is all rows.
+        Number of rows to calculate condensation pressure for, default is all
+        rows.
 
     Returns
     -------
@@ -131,7 +138,7 @@ def calccondprdef(p, t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -142,6 +149,7 @@ def calccondprdef(p, t, rh, **kwargs):
 
     """
     return _awips.calccondprdef(p, t, rh, **kwargs)
+
 
 def alt2press(alt, z, **kwargs):
     """
@@ -164,21 +172,23 @@ def alt2press(alt, z, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
     --------
     >>> import aoslib
     >>> aoslib.alt2press([[900.]], [[2000.]])
-    array([[ 706.0970459]], dtype=float32)  
+    array([[ 706.0970459]], dtype=float32)
 
     """
     return _awips.alt2press(alt, z, **kwargs)
 
+
 def calcli(p, t, rh, t5, **kwargs):
     """
-    Calculate lifted index from pressure, temperature, relative humidity, and 500mb (normally) temperature.  
+    Calculate lifted index from pressure, temperature, relative humidity,
+    and 500mb (normally) temperature.
 
     Parameters
     ----------
@@ -193,7 +203,8 @@ def calcli(p, t, rh, t5, **kwargs):
     p5 : real, optional
         Upper pressure, normally 500mb.
     ni : int, optional
-        Number of rows to calculate condensation pressure for, default is all rows.
+        Number of rows to calculate condensation pressure for, default is all
+        rows.
 
     Returns
     -------
@@ -203,7 +214,7 @@ def calcli(p, t, rh, t5, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -216,9 +227,10 @@ def calcli(p, t, rh, t5, **kwargs):
     return _awips.calcli(p, t, rh, t5, **kwargs)
 
 
-def calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy, coriolis, **kwargs):
+def calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy,
+           coriolis, **kwargs):
     """
-    Calculate isentropic potential vorticity through a layer.  
+    Calculate isentropic potential vorticity through a layer.
 
     Parameters
     ----------
@@ -245,7 +257,8 @@ def calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy, corioli
     coriolis : array_like, 2D
         Coriolis parameter (1/s).
     ni : int, optional
-        Number of rows to calculate potential vorticity for, default is all rows.
+        Number of rows to calculate potential vorticity for, default is all
+        rows.
 
     Returns
     -------
@@ -256,7 +269,7 @@ def calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy, corioli
     -----
     1) Minimum number of elements in each dimension is 3.
     2) No quality control is peformed in this routine.
-    3) Values > 1.e6 - 2 in any of the input arrays 
+    3) Values > 1.e6 - 2 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -266,7 +279,8 @@ def calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy, corioli
     >>> aoslib.calcpv
 
     """
-    return _awips.calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy, coriolis, **kwargs)
+    return _awips.calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low,
+                         dx, dy, coriolis, **kwargs)
 
 
 def calcdpd(t, rh, **kwargs):
@@ -280,7 +294,8 @@ def calcdpd(t, rh, **kwargs):
     rh : array_like, 2D
         Relative humidities (0. - 100.).
     ni : int, optional
-        Number of rows to calculate dewpoint depression for, default is all rows.
+        Number of rows to calculate dewpoint depression for, default is all
+        rows.
 
     Returns
     -------
@@ -290,7 +305,7 @@ def calcdpd(t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -301,6 +316,7 @@ def calcdpd(t, rh, **kwargs):
 
     """
     return _awips.calcdpd(t, rh, **kwargs)
+
 
 def calcrh(t, td, **kwargs):
     """
@@ -323,7 +339,7 @@ def calcrh(t, td, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -335,9 +351,11 @@ def calcrh(t, td, **kwargs):
     """
     return _awips.calcrh(t, td, **kwargs)
 
+
 def calcrh2(p, t, q, **kwargs):
     """
-    Calculate relative humidity from pressure, temperature, and specific humidity.
+    Calculate relative humidity from pressure, temperature, and specific
+    humidity.
 
     Parameters
     ----------
@@ -358,21 +376,23 @@ def calcrh2(p, t, q, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
     --------
     >>> import aoslib
     >>> aoslib.calcrh2([[1013.25]], [[296.15]], [[8.667]])
-    array([[ 50.00162125]], dtype=float32) 
+    array([[ 50.00162125]], dtype=float32)
 
     """
     return _awips.calcrh2(p, t, q, **kwargs)
 
+
 def calcthetae(p, t, rh, **kwargs):
     """
-    Calculate equivalent potential temperature from the pressure, temperature, and relative humidity.  
+    Calculate equivalent potential temperature from the pressure, temperature,
+    and relative humidity.
 
     Parameters
     ----------
@@ -383,31 +403,35 @@ def calcthetae(p, t, rh, **kwargs):
     rh : array_like, 2D
         Relative humidity (range 0 - 100).
     ni : int, optional
-        Number of rows to calculate potential temperature for, default is all rows.
+        Number of rows to calculate potential temperature for, default is all
+        rows.
 
     Returns
     -------
     q : array, 2D
-        Theta E (Equivalent potential temperature) (K). Will have same shape as p.
+        Theta E (Equivalent potential temperature) (K). Will have same shape
+        as p.
 
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
     --------
     >>> import aoslib
     >>> aoslib.calcthetae([[1013.25]], [[296.15]], [[85.]])
-    array([[ 336.05654907]], dtype=float32) 
+    array([[ 336.05654907]], dtype=float32)
 
     """
     return _awips.calcthetae(p, t, rh, **kwargs)
 
+
 def calcthetae2(p, t, td, **kwargs):
     """
-    Calculate equivalent potential temperature from the pressure, temperature, and dewpoint.
+    Calculate equivalent potential temperature from the pressure,
+    temperature, and dewpoint.
 
     Parameters
     ----------
@@ -418,17 +442,19 @@ def calcthetae2(p, t, td, **kwargs):
     td : array_like, 2D
         Dewpoint (C or K -- must be the same as t)
     ni : int, optional
-        Number of rows to calculate potential temperature for, default is all rows.
+        Number of rows to calculate potential temperature for, default is all
+        rows.
 
     Returns
     -------
     q : array, 2D
-        Theta E (Equivalent potential temperature) (K). Will have same shape as p.
+        Theta E (Equivalent potential temperature) (K). Will have same shape
+        as p.
 
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -440,9 +466,11 @@ def calcthetae2(p, t, td, **kwargs):
     """
     return _awips.calcthetae2(p, t, td, **kwargs)
 
+
 def calctv(p, t, rh, **kwargs):
     """
-    Calculate virtual temperature from the pressure, temperature, and relative humidity.  
+    Calculate virtual temperature from the pressure, temperature, and
+    relative humidity.
 
     Parameters
     ----------
@@ -453,7 +481,8 @@ def calctv(p, t, rh, **kwargs):
     rh : array_like, 2D
         Relative humidity (range 0 - 100).
     ni : int, optional
-        Number of rows to calculate virtual temperature for, default is all rows.
+        Number of rows to calculate virtual temperature for, default is all
+        rows.
 
     Returns
     -------
@@ -463,7 +492,7 @@ def calctv(p, t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -474,6 +503,7 @@ def calctv(p, t, rh, **kwargs):
 
     """
     return _awips.calctv(p, t, rh, **kwargs)
+
 
 def calctv2(t, q, **kwargs):
     """
@@ -486,7 +516,8 @@ def calctv2(t, q, **kwargs):
     q : array_like, 2D
         Specific humidity (g/Kg).
     ni : int, optional
-        Number of rows to calculate virtual temperature for, default is all rows.
+        Number of rows to calculate virtual temperature for, default is all
+        rows.
 
     Returns
     -------
@@ -496,7 +527,7 @@ def calctv2(t, q, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with falg value 1.e37 in the return array.
 
     Examples
@@ -508,9 +539,11 @@ def calctv2(t, q, **kwargs):
     """
     return _awips.calctv2(t, q, **kwargs)
 
+
 def calctw(p, t, rh, **kwargs):
     """
-    Calculate wet-bulb temperature from pressure, temperature, and relative humidity.  
+    Calculate wet-bulb temperature from pressure, temperature, and relative
+    humidity.
 
     Parameters
     ----------
@@ -521,7 +554,8 @@ def calctw(p, t, rh, **kwargs):
     rh : array_like, 2D
         Relative humidity (range 0 - 100).
     ni : int, optional
-        Number of rows to calculate wet-bulb temperature for, default is all rows.
+        Number of rows to calculate wet-bulb temperature for, default is all
+        rows.
 
     Returns
     -------
@@ -531,7 +565,7 @@ def calctw(p, t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -543,9 +577,11 @@ def calctw(p, t, rh, **kwargs):
     """
     return _awips.calctw(p, t, rh, **kwargs)
 
+
 def cclpar(mix, p, ht, t, **kwargs):
     """
-    Calculate pressure, height, and temperature of the convective condensation level (CCL) from a sounding.
+    Calculate pressure, height, and temperature of the convective condensation
+    level (CCL) from a sounding.
 
     Parameters
     ----------
@@ -584,9 +620,11 @@ def cclpar(mix, p, ht, t, **kwargs):
     """
     return _awips.cclpar(mix, p, ht, t, **kwargs)
 
+
 def cgp(tempip, dwptip, presip, thetawip, toppres, deltap, **kwargs):
     """
-    Calculate convective gust potential based on Western Region Technical Attachment 76-??.  
+    Calculate convective gust potential based on Western Region Technical
+    Attachment 76-??.
 
     Parameters
     ----------
@@ -594,31 +632,33 @@ def cgp(tempip, dwptip, presip, thetawip, toppres, deltap, **kwargs):
         Temperature on the uniform pressure grid (K)
     dwptip : array_like, 1D (up to 400 elements)
         Dew point temperature on the uniform pressure grid (K)
-    presip : array_like, 1D (up to 400 elements) 
+    presip : array_like, 1D (up to 400 elements)
         Pressure on the uniform pressure grid (mb)
-    thetawip : array_like, 1D (up to 400 elements) 
-        Wet bulb potential temperature on the uniform pressure grid (K) 
+    thetawip : array_like, 1D (up to 400 elements)
+        Wet bulb potential temperature on the uniform pressure grid (K)
     sfcpres : real
         Index of the surface pressure on the uniform pressure grid
-    toppres : real 
+    toppres : real
         Index of the last pressure on the uniform pressure grid
     iw : int
-        >0 for mixing ratio with respect to water                                                                                                                                                                                   
-        <0 for mixing ratio with respect to ice 
+        >0 for mixing ratio with respect to water
+        <0 for mixing ratio with respect to ice
     deltap : real
         Pressure increment of the uniform pressure grid (mb)
 
     Returns
     -------
-    cgp : int 
+    cgp : int
         Convective gust potential (1, 2, 3, 4)
 
     Examples (todo)
     --------
-    >>> import aoslib 
+    >>> import aoslib
 
     """
-    return _awips.cgp(tempip, dwptip, presip, thetawip, toppres, deltap, **kwargs)
+    return _awips.cgp(tempip, dwptip, presip, thetawip, toppres, deltap,
+                      **kwargs)
+
 
 def derived_icing(t, rh, **kwargs):
     """
@@ -640,7 +680,8 @@ def derived_icing(t, rh, **kwargs):
 
     Notes
     -----
-    Input values greater than (1.e6 - 2) are replaced on output with the flag value 1.e37
+    Input values greater than (1.e6 - 2) are replaced on output with the flag
+    value 1.e37
 
     Examples
     --------
@@ -649,6 +690,7 @@ def derived_icing(t, rh, **kwargs):
     array([[ 3.33333325]], dtype=float32)
     """
     return _awips.derived_icing(t, rh, **kwargs)
+
 
 def hgt2pres(z, **kwargs):
     """
@@ -669,21 +711,23 @@ def hgt2pres(z, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
     --------
     >>> import aoslib
     >>> aoslib.hgt2pres([[3000]])
-    array([[ 700.90557861]], dtype=float32) 
+    array([[ 700.90557861]], dtype=float32)
 
     """
     return _awips.hgt2pres(z, **kwargs)
 
+
 def mixrat(p, t, rh, **kwargs):
     """
-    Calculate mixing ratio from the pressure, temperature, and relative humidity.
+    Calculate mixing ratio from the pressure, temperature, and relative
+    humidity.
 
     Parameters
     ----------
@@ -704,7 +748,7 @@ def mixrat(p, t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -716,9 +760,11 @@ def mixrat(p, t, rh, **kwargs):
     """
     return _awips.mixrat(p, t, rh, **kwargs)
 
+
 def mslp2thkns(mslp, hgt, **kwargs):
     """
-    Estimate 1000 to 500 mb layer thickness from 500 mb height and mean sea level pressure
+    Estimate 1000 to 500 mb layer thickness from 500 mb height and mean sea
+    level pressure
 
     Parameters
     ----------
@@ -737,7 +783,7 @@ def mslp2thkns(mslp, hgt, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -748,6 +794,7 @@ def mslp2thkns(mslp, hgt, **kwargs):
 
     """
     return _awips.mslp2thkns(mslp, hgt, **kwargs)
+
 
 def press2alt(p, z, **kwargs):
     """
@@ -770,7 +817,7 @@ def press2alt(p, z, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -780,6 +827,7 @@ def press2alt(p, z, **kwargs):
     array([[ 1500.59912109]], dtype=float32)
     """
     return _awips.press2alt(p, z, **kwargs)
+
 
 def ptozsa(p, **kwargs):
     """
@@ -798,20 +846,22 @@ def ptozsa(p, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) A value > 99998.0 or < 1.0 in the input 
+    2) A value > 99998.0 or < 1.0 in the input
        is replaced with flag value 1.e37 in the return value.
 
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.ptozsa([800]) 
+    >>> aoslib.ptozsa([800])
     1947.533203125
     """
     return _awips.ptozsa(p, **kwargs)
 
+
 def slfront(z, t, p, dx, dy, coriolis,  **kwargs):
     """
-    Calculate the QG frontogenesis function on a single level using just that level's data.
+    Calculate the QG frontogenesis function on a single level using just that
+    level's data.
 
     Parameters
     ----------
@@ -828,7 +878,8 @@ def slfront(z, t, p, dx, dy, coriolis,  **kwargs):
     coriolis : array_like, 2D
         Coriolis parameter (1/s)
     ni : int, optional
-        Number of rows to calculate frontogenesis function for, default is all rows.
+        Number of rows to calculate frontogenesis function for, default is all
+        rows.
 
     Returns
     -------
@@ -838,7 +889,7 @@ def slfront(z, t, p, dx, dy, coriolis,  **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 1.e6 -2 in any of the input arrays 
+    2) Values > 1.e6 -2 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
     3) At least 3 elements in each dimension are required.
     3) Bounding elements of the output array are set to 1.e37
@@ -852,9 +903,9 @@ def slfront(z, t, p, dx, dy, coriolis,  **kwargs):
     >>> dx = dy = [[400,400,400],[400,400,400],[400,400,400]]
     >>> c = [[1e-5,1e-5,1e-5],[1e-5,1e-5,1e-5],[1e-5,1e-5,1e-5]]
     >>> aoslib.slfront(z,t,p,dx,dy,c)
-    array([[  9.99999993e+36,   9.99999993e+36,   9.99999993e+36],
-          [  9.99999993e+36,  -0.00000000e+00,   9.99999993e+36],
-          [  9.99999993e+36,   9.99999993e+36,   9.99999993e+36]], dtype=float32)
+    array([[9.99999993e+36, 9.99999993e+36, 9.99999993e+36],
+          [9.99999993e+36, -0.00000000e+00, 9.99999993e+36],
+          [9.99999993e+36, 9.99999993e+36, 9.99999993e+36]], dtype=float32)
 
     """
     return _awips.slfront(z, t, p, dx, dy, coriolis,  **kwargs)
@@ -862,7 +913,8 @@ def slfront(z, t, p, dx, dy, coriolis,  **kwargs):
 
 def spechum(p, t, rh, **kwargs):
     """
-    Calculate specific humidity from pressure, temperature, and relative humidity.  
+    Calculate specific humidity from pressure, temperature, and relative
+    humidity.
 
     Parameters
     ----------
@@ -883,17 +935,18 @@ def spechum(p, t, rh, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
     --------
     >>> import aoslib
     >>> aoslib.spechum([[1013.25]], [[296.15]], [[85.]])
-    array([[ 14.78793144]], dtype=float32) 
+    array([[ 14.78793144]], dtype=float32)
 
     """
     return _awips.spechum(p, t, rh, **kwargs)
+
 
 def spechum2(p, td, **kwargs):
     """
@@ -906,7 +959,8 @@ def spechum2(p, td, **kwargs):
     td : array_like, 2D
         Dewpoint (K).
     ni : int, optional
-        Number of rows to calculate specific humidity for, default is all rows.
+        Number of rows to calculate specific humidity for, default is all
+        rows.
 
     Returns
     -------
@@ -916,7 +970,7 @@ def spechum2(p, td, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -927,6 +981,7 @@ def spechum2(p, td, **kwargs):
 
     """
     return _awips.spechum2(p, td, **kwargs)
+
 
 def tv2temp(tv, q, **kwargs):
     """
@@ -949,7 +1004,7 @@ def tv2temp(tv, q, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) Values > 99998.0 in any of the input arrays 
+    2) Values > 99998.0 in any of the input arrays
        are replaced with flag value 1.e37 in the return array.
 
     Examples
@@ -960,6 +1015,7 @@ def tv2temp(tv, q, **kwargs):
 
     """
     return _awips.tv2temp(tv, q, **kwargs)
+
 
 def ztopsa(z, **kwargs):
     """
@@ -978,7 +1034,7 @@ def ztopsa(z, **kwargs):
     Notes
     -----
     1) No quality control is peformed in this routine.
-    2) A value > 1.e10 in the input 
+    2) A value > 1.e10 in the input
        is replaced with flag value 1.e37 in the return value.
 
     Examples
@@ -990,9 +1046,11 @@ def ztopsa(z, **kwargs):
     """
     return _awips.ztopsa(z, **kwargs)
 
+
 def dmixr(temp, pres, iw, **kwargs):
     """
-    Calculate the water vapor mixing ratio with respect to either water or ice. 
+    Calculate the water vapor mixing ratio with respect to either water or
+    ice.
 
     Parameters
     ----------
@@ -1011,8 +1069,8 @@ def dmixr(temp, pres, iw, **kwargs):
 
     Notes
     -----
-    1)  Values of physical constants from Sonntag, D. 1990: 
-    Important new values of the physical constants of 1986, 
+    1)  Values of physical constants from Sonntag, D. 1990:
+    Important new values of the physical constants of 1986,
     vapour pressure formulations based on the ITS-90, and psychrometer
     formulae. Z. Meteorol., 40, 340-344.
 
@@ -1027,9 +1085,10 @@ def dmixr(temp, pres, iw, **kwargs):
     """
     return _awips.dmixr(temp, pres, iw, **kwargs)
 
+
 def dzdlnp(p, t, td, **kwargs):
     """
-    Calculate the rate of change of height versus the log of pressure.  
+    Calculate the rate of change of height versus the log of pressure.
 
     Parameters
     ----------
@@ -1046,8 +1105,9 @@ def dzdlnp(p, t, td, **kwargs):
 
     Notes
     -----
-    1) Values less than 100 for temperature are assumed to be Celcius degrees. 
-    2) If td > t, it is assumed to be missing and is replaced with the value t - 50
+    1) Values less than 100 for temperature are assumed to be Celcius degrees.
+    2) If td > t, it is assumed to be missing and is replaced with the value
+       t - 50
 
     Examples
     --------
@@ -1057,6 +1117,7 @@ def dzdlnp(p, t, td, **kwargs):
 
     """
     return _awips.dzdlnp(p, t, td, **kwargs)
+
 
 def radnorm(jd, **kwargs):
     """
@@ -1080,6 +1141,7 @@ def radnorm(jd, **kwargs):
 
     """
     return _awips.radnorm(jd, **kwargs)
+
 
 def soldec(jd, **kwargs):
     """
@@ -1105,6 +1167,7 @@ def soldec(jd, **kwargs):
     """
     return _awips.soldec(jd, **kwargs)
 
+
 def timeq(jd, **kwargs):
     """
     Calculate equation of time
@@ -1129,6 +1192,7 @@ def timeq(jd, **kwargs):
     """
     return _awips.timeq(jd, **kwargs)
 
+
 def esat(t, **kwargs):
     """
     Calculate saturation vapor pressure as a function of temperature
@@ -1146,7 +1210,8 @@ def esat(t, **kwargs):
     Notes
     -----
     1) Values less than 100 for temperature are assumed to be Celcius degrees
-    2) The flag value 1.e37 is returned for input values (after conversion to degrees K) < 0.0 K or > 373.15 
+    2) The flag value 1.e37 is returned for input values (after conversion to
+       degrees K) < 0.0 K or > 373.15
 
     Examples
     --------
@@ -1159,6 +1224,7 @@ def esat(t, **kwargs):
 
     """
     return _awips.esat(t,  **kwargs)
+
 
 def tdofesat(es, **kwargs):
     """
@@ -1186,9 +1252,11 @@ def tdofesat(es, **kwargs):
     """
     return _awips.tdofesat(es,  **kwargs)
 
+
 def pottemp(temp, dwpt, pres, iw, **kwargs):
     """
-    Calculate the potential temperature based on temperature, dewpoint temperature, and pressure
+    Calculate the potential temperature based on temperature, dewpoint
+    temperature, and pressure
 
     Parameters
     ----------
@@ -1196,20 +1264,20 @@ def pottemp(temp, dwpt, pres, iw, **kwargs):
         Temperature (C or K)
     dwpt : real
         Dew point temperature (C or K -- must be the same units as temp)
-    pres : 
+    pres :
         Pressure (mb)
     iw : int
-        >0 for mixing ratio with respect to water                                                                                                                                                                                   
-        <0 for mixing ratio with respect to ice 
+        >0 for mixing ratio with respect to water
+        <0 for mixing ratio with respect to ice
 
     Returns
     -------
-    pottemp : int 
+    pottemp : int
         Potential temperature (C or K)
 
     Examples
     --------
-    >>> import aoslib 
+    >>> import aoslib
     >>> aoslib.pottemp(270,265,500,1)
     302.6724853515625
     >>> aoslib.pottemp(30,35,700,1)
@@ -1218,9 +1286,10 @@ def pottemp(temp, dwpt, pres, iw, **kwargs):
     """
     return _awips.pottemp(temp, dwpt, pres, iw, **kwargs)
 
+
 def thetawa(temp, dwpt, pres, iw,  **kwargs):
     """
-    Calculate the adiabatic web bulb potential temperature 
+    Calculate the adiabatic web bulb potential temperature
 
     Parameters
     ----------
@@ -1228,25 +1297,26 @@ def thetawa(temp, dwpt, pres, iw,  **kwargs):
         Temperature (C or K)
     dwpt : real
         Dew point temperature (C or K -- must be the same units as temp)
-    pres : 
+    pres :
         Pressure (mb)
     iw : int
-        >0 for mixing ratio with respect to water                                                                                                                                                                                   
-        <0 for mixing ratio with respect to ice 
+        >0 for mixing ratio with respect to water
+        <0 for mixing ratio with respect to ice
 
     Returns
     -------
     thetawa : real
-        Adiabatic wet bulb potential temperature (C or K depending on input units)
+        Adiabatic wet bulb potential temperature (C or K depending on input
+        units)
 
     Notes
     -----
     1) Values less than 100 for temperature are assumed to be Celcius degrees
     1) A flag value of -999.0 is returned if this routine fails
 
-    Examples 
+    Examples
     --------
-    >>> import aoslib 
+    >>> import aoslib
     >>> aoslib.thetawa(270,265,500,1)
     302.6724853515625
     >>> aoslib.thetawa(30,30,700,1)
@@ -1258,5 +1328,3 @@ def thetawa(temp, dwpt, pres, iw,  **kwargs):
 
     """
     return _awips.thetawa(temp, dwpt, pres, iw,  **kwargs)
-
-
