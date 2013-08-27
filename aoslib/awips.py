@@ -68,8 +68,8 @@ def calctd2(p, t, q, **kwargs):
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.calctd2([[1013.25]], [[296.15]], [[8.80486]])
-    array([[ 285.41519165 ]], dtype=float32)
+    >>> round(aoslib.calctd2([[1013.25]], [[296.15]], [[8.80486]]), 2)
+    285.42
 
     """
     return _awips.calctd2(p, t, q, **kwargs)
@@ -178,8 +178,8 @@ def alt2press(alt, z, **kwargs):
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.alt2press([[900.]], [[2000.]])
-    array([[ 706.0970459]], dtype=float32)
+    >>> round(aoslib.alt2press([[900.]], [[2000.]]), 1)
+    706.1
 
     """
     return _awips.alt2press(alt, z, **kwargs)
@@ -274,9 +274,7 @@ def calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low, dx, dy,
 
     Examples
     --------
-    >>> import aoslib
-    >>> (still to do == needs 3x3 arrays for each array input)
-    >>> aoslib.calcpv
+    TODO
 
     """
     return _awips.calcpv(p_up, p_low, th_up, th_low, u_up, v_up, u_low, v_low,
@@ -572,7 +570,7 @@ def calctw(p, t, rh, **kwargs):
     --------
     >>> import aoslib
     >>> aoslib.calctw([[1013.25]], [[296.15]], [[85.]])
-    array([[ 298.81143188]], dtype=float32)
+    array([[ 294.28710938]], dtype=float32)
 
     """
     return _awips.calctw(p, t, rh, **kwargs)
@@ -686,7 +684,7 @@ def derived_icing(t, rh, **kwargs):
     Examples
     --------
     >>> import aoslib
-    >>> a.derived_icing([[267.15]], [[85.]])
+    >>> aoslib.derived_icing([[267.15]], [[85.]])
     array([[ 3.33333325]], dtype=float32)
     """
     return _awips.derived_icing(t, rh, **kwargs)
@@ -903,9 +901,9 @@ def slfront(z, t, p, dx, dy, coriolis,  **kwargs):
     >>> dx = dy = [[400,400,400],[400,400,400],[400,400,400]]
     >>> c = [[1e-5,1e-5,1e-5],[1e-5,1e-5,1e-5],[1e-5,1e-5,1e-5]]
     >>> aoslib.slfront(z,t,p,dx,dy,c)
-    array([[9.99999993e+36, 9.99999993e+36, 9.99999993e+36],
-          [9.99999993e+36, -0.00000000e+00, 9.99999993e+36],
-          [9.99999993e+36, 9.99999993e+36, 9.99999993e+36]], dtype=float32)
+    array([[  9.99999993e+36,   9.99999993e+36,   9.99999993e+36],
+           [  9.99999993e+36,  -0.00000000e+00,   9.99999993e+36],
+           [  9.99999993e+36,   9.99999993e+36,   9.99999993e+36]], dtype=float32)
 
     """
     return _awips.slfront(z, t, p, dx, dy, coriolis,  **kwargs)
@@ -1186,8 +1184,8 @@ def timeq(jd, **kwargs):
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.timeq(183)
-    -0.015978718176484108
+    >>> round(aoslib.timeq(183), 5)
+    -0.01598
 
     """
     return _awips.timeq(jd, **kwargs)
@@ -1247,7 +1245,8 @@ def tdofesat(es, **kwargs):
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.esat( 6.106378)
+    >>> round(aoslib.tdofesat(400.), 1)
+    349.4
 
     """
     return _awips.tdofesat(es,  **kwargs)
@@ -1278,10 +1277,10 @@ def pottemp(temp, dwpt, pres, iw, **kwargs):
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.pottemp(270,265,500,1)
-    302.6724853515625
-    >>> aoslib.pottemp(30,35,700,1)
-    33.21508026123047
+    >>> round(aoslib.pottemp(270,265,500,1), 2)
+    328.99
+    >>> round(aoslib.pottemp(30,35,700,1), 3)
+    33.215
 
     """
     return _awips.pottemp(temp, dwpt, pres, iw, **kwargs)
