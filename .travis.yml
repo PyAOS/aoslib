@@ -1,0 +1,12 @@
+language: python
+python:
+  - "2.5"
+  - "2.6"
+  - "2.7"
+before_install:
+  # Print NumPy version that is already installed by Travis CI:
+  - python -c "import numpy; print numpy.__version__"
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq gfortran
+install: python setup.py build_ext --inplace
+script: nosetests -v aoslib
