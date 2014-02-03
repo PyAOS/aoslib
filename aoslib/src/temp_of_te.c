@@ -10,7 +10,7 @@ float FTN_MANGLE (temp_of_te_) (float * te, float * press)
     {
     static const int tmin = 193;
     static const int tmax = 333;
-    static const int nval = 1+tmax-tmin;
+    static const int nval = 1+333-193;  // 1 + tmax - tmin (vars. replaced)
     static float TeData[7*141];     // replace 141 by nval
     static float * Te1000 = 0;
     static float * Te850 = 0;
