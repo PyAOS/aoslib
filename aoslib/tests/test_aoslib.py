@@ -446,6 +446,39 @@ def test_calctw():
     assert_allclose(aoslib.calctw(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_crossvectors():
+    # p,t,rh, ni
+    ax = [[1000., 950.], [925., 975.], [960., 1020.]]
+    ay = [[300., 299.], [199., 200.], [99, 100.]]
+    bx = [[50.0, 50.0], [50.0, 50.0], [50., 50.]]
+    by = [[60.0, 60.0], [60.0, 60.0], [60., 60.]]
+    result = [[0., 0.], [0., 0.], [0., 0.]]
+    three_rows = np.array(
+        [[45000.,  42050.],
+         [45550.,  48500.],
+         [52650.,  56200.]], dtype='float32')
+    two_rows = np.array(
+        [[45000.,  42050.],
+         [45550.,  48500.],
+         [    0.,      0.]], dtype='float32')
+    one_row = np.array(
+        [[45000.,  42050.],
+         [    0.,      0.],
+         [    0.,      0.]], dtype='float32')
+
+    if verbose:
+        print "crossvectors:"
+        print aoslib.crossvectors(ax,ay,bx,by)
+        print aoslib.crossvectors(ax,ay,bx,by, ni=3)
+        print aoslib.crossvectors(ax,ay,bx,by, ni=2)
+        print aoslib.crossvectors(ax,ay,bx,by, ni=1)
+
+    assert_allclose(aoslib.crossvectors(ax,ay,bx,by), three_rows, atol=ATOL)
+    assert_allclose(aoslib.crossvectors(ax,ay,bx,by, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.crossvectors(ax,ay,bx,by, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.crossvectors(ax,ay,bx,by, ni=1), one_row, atol=ATOL)
+
+
 def test_derived_icing():
     # t, rh, ni
     t = [[300., 299.], [268., 274.], [258., 267.43572]]

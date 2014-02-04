@@ -658,6 +658,27 @@ def cgp(tempip, dwptip, presip, thetawip, toppres, deltap, **kwargs):
                       **kwargs)
 
 
+def crossvectors(ax, ay, bx, by, **kwargs):
+    """
+    Cross a field of vectors by another.  Each i,j in one array of vectors
+    is crossed with the corresponding i,j in the other array of vectors.
+
+    Parameters
+    ----------
+    XXX
+
+    Returns
+    -------
+    XXX
+
+    Examples (todo)
+    --------
+    XXX
+
+    """
+    return _awips.crossvectors(ax, ay, bx, by, **kwargs)
+
+
 def derived_icing(t, rh, **kwargs):
     """
     Calculate derived icing value from temperature and relative humidity
