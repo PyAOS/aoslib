@@ -1256,10 +1256,10 @@ python module _awips ! in
             real*4 intent(out) :: ztopsa
         end function ztopsa
         subroutine density(p,tvir,nlvls,rho) ! in :_aoslib:density.f
-            real dimension(nlvls) :: p
-            real dimension(nlvls),depend(nlvls) :: tvir
-            integer, optional,check(len(p)>=nlvls),depend(p) :: nlvls=len(p)
-            real dimension(nlvls),depend(nlvls) :: rho
+            real dimension(nlvls), intent(in) :: p
+            real dimension(nlvls),depend(nlvls), intent(in) :: tvir
+            integer, optional,check(len(p)>=nlvls),depend(p), intent(hide) :: nlvls=len(p)
+            real dimension(nlvls),depend(nlvls), intent(out) :: rho
         end subroutine density
         subroutine lintrans(a,mult,add,result,mni,ni,nj) ! in :_aoslib:lintrans.f
             real dimension(mni,nj) :: a

@@ -4,6 +4,27 @@ Python front end to routines in AWIPS I
 
 import _awips
 
+def density(p,tvir):
+    """
+    Calculate air density from pressure and virtual temperature from an
+    sounding array.
+    
+    Parameters
+    ----------
+    p : array_like, 1D
+        Sounding pressures (mb)
+    tvir : array_like, 1D
+        Sounding virtual temperatures (C)
+    
+    Returns
+    -------
+    rho : array_like, 1D
+          Air Density (kg/m^3)
+    
+    Notes: To do: just make K and Pa
+    """
+    return _awips.density(p,tvir)
+
 def richno(ht,hw,uw,vw,rho,buoy):
     """
     Calculate Bulk Richardson number from wind components and buoyancy.
