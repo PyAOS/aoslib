@@ -23,7 +23,7 @@ def richno(ht,hw,uw,vw,rho,buoy):
     
     Returns
     -------
-    richno : array, 1D
+    richno : real 
         Dimensionless bulk Richardson number.
     """
     return _awips.richno(ht,hw,uw,vw,rho,buoy)
