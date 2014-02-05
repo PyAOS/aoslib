@@ -679,6 +679,45 @@ def crossvectors(ax, ay, bx, by, **kwargs):
     return _awips.crossvectors(ax, ay, bx, by, **kwargs)
 
 
+def ctop(p, ht, vv, peqlev, **kwargs):
+    """
+    Statement of purpose
+    --------------------
+    This routine estimates the cloud top based on the undiluted parcel
+    vertical velocity profile.
+
+    History
+    -------
+    D. Baker       10 May 85
+
+    Parameters:
+    -----------
+    P           Real Array    Parcel level pressures (mb).
+    HT          Real Array    Parcel level heights (m asl).
+    VV          Real Array    Parcel vertical velocity profile (m/s).
+    PEQLEV      Real          Equilibrium level pressure (mb).
+    NPAR        Integer       Number of parcel levels passed.
+
+    Returns:
+    --------
+    CLDTOP      Real          Estimated cloud top (m asl).
+
+    User notes:
+    -----------
+    1) The estimated cloud top is the level where the vertical velocity
+       drops to zero above the equilibrium level.
+    2) If the parcel vertical velocity does not drop to zero, a value
+       of 99999 is returned for the cloud top...meaning that the top is
+       above the top of the sounding.
+
+    Examples (todo)
+    --------
+    XXX
+
+    """
+    return _awips.ctop(p, ht, vv, peqlev, **kwargs)
+
+
 def derived_icing(t, rh, **kwargs):
     """
     Calculate derived icing value from temperature and relative humidity

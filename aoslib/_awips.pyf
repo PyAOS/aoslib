@@ -1088,12 +1088,12 @@ python module _awips ! in
             real :: vvmax
         end subroutine vvel
         subroutine ctop(p,ht,vv,peqlev,npar,cldtop) ! in :_aoslib:ctop.f
-            real dimension(npar) :: p
-            real dimension(npar),depend(npar) :: ht
-            real dimension(npar),depend(npar) :: vv
-            real :: peqlev
-            integer, optional,check(len(p)>=npar),depend(p) :: npar=len(p)
-            real :: cldtop
+            real dimension(npar), intent(in) :: p
+            real dimension(npar), intent(in), depend(npar) :: ht
+            real dimension(npar), intent(in), depend(npar) :: vv
+            real, intent(in) :: peqlev
+            integer, optional, check(len(p)>=npar), depend(p) :: npar=len(p)
+            real, intent(out) :: cldtop
         end subroutine ctop
         subroutine koffset(temp,mni,ni,nj,k0) ! in koffset.f
             real*4 dimension(mni,nj), intent(in) :: temp
