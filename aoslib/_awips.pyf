@@ -1036,14 +1036,14 @@ python module _awips ! in
             real :: vp
         end function vp
         subroutine crossvectors(ax,ay,bx,by,result,mni,ni,nj) ! in :_aoslib:crossvectors.f
-            real dimension(mni,nj) :: ax
-            real dimension(mni,nj),depend(mni,nj) :: ay
-            real dimension(mni,nj),depend(mni,nj) :: bx
-            real dimension(mni,nj),depend(mni,nj) :: by
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(ax,0)==mni),depend(ax) :: mni=shape(ax,0)
-            integer :: ni
-            integer, optional,check(shape(ax,1)==nj),depend(ax) :: nj=shape(ax,1)
+            real dimension(mni,nj), intent(in) :: ax
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: ay
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: bx
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: by
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: result
+            integer, intent(hide), depend(ax) :: mni=shape(ax,0)
+            integer optional, check(ni<=shape(ax,0)), depend(ax) :: ni=shape(ax,0)
+            integer, intent(hide), depend(ax) :: nj=shape(ax,1)
         end subroutine crossvectors
         subroutine isen_stability(p_up,p_low,o_up,o_low,stab,mni,ni,nj) ! in :_aoslib:isenstable.f
             real*4 dimension(mni,nj) :: p_up
@@ -1088,12 +1088,12 @@ python module _awips ! in
             real :: vvmax
         end subroutine vvel
         subroutine ctop(p,ht,vv,peqlev,npar,cldtop) ! in :_aoslib:ctop.f
-            real dimension(npar) :: p
-            real dimension(npar),depend(npar) :: ht
-            real dimension(npar),depend(npar) :: vv
-            real :: peqlev
-            integer, optional,check(len(p)>=npar),depend(p) :: npar=len(p)
-            real :: cldtop
+            real dimension(npar), intent(in) :: p
+            real dimension(npar), intent(in), depend(npar) :: ht
+            real dimension(npar), intent(in), depend(npar) :: vv
+            real, intent(in) :: peqlev
+            integer, optional, check(len(p)>=npar), depend(p) :: npar=len(p)
+            real, intent(out) :: cldtop
         end subroutine ctop
         subroutine koffset(temp,mni,ni,nj,k0) ! in koffset.f
             real*4 dimension(mni,nj), intent(in) :: temp
