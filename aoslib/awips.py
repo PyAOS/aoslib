@@ -1387,3 +1387,39 @@ def thetawa(temp, dwpt, pres, iw,  **kwargs):
 
     """
     return _awips.thetawa(temp, dwpt, pres, iw,  **kwargs)
+
+
+def add_aray(a, b, **kwargs):
+    """
+    Add two arrays element-by-element.
+
+    Similar functionality can be obtained using the addition operator on
+    NumPy arrays.  Use of this function is not recommended.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        First array to add.
+    b : array_like, 2D
+        Seconds array to add.
+    mode : int, optional
+        Flag controlling how bad values are handled.
+        When mode is 0 bad values (>1.e36) in a or b are propagated to the
+        results array and marked (1.e37).  When mode is non-zero then bad
+        values are treated as zeros.
+    ni : int, optional
+        Number of rows to calculate addition for, default is all rows.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Element by element addition of a and b.
+
+    Notes
+    -----
+    1) No quality control is peformed in this routine.
+    2) See the discussion in the `mode` parameter on the effects of values
+       >1.e36 in the input arrays `a` and `b`
+
+    """
+    return _awips.add_aray(a, b, **kwargs)

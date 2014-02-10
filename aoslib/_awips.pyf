@@ -3,15 +3,17 @@
 
 python module _awips ! in 
     interface  ! in :_aoslib
+        
         subroutine add_aray(a,b,result,mni,ni,nj,mode) ! in :_aoslib:addaray.f
-            real dimension(mni,nj) :: a
-            real dimension(mni,nj),depend(mni,nj) :: b
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
-            integer :: mode
+            real dimension(mni,nj), intent(in) :: a
+            real dimension(mni,nj), intent(in) :: b
+            real dimension(mni,nj), intent(out) :: result
+            integer, intent(hide), depend(a) :: mni=shape(a,0)
+            integer, optional, check(ni<=shape(a,0)) :: ni=shape(a,0)
+            integer, intent(hide), depend(a) :: nj=shape(a,1)
+            integer, optional :: mode=0
         end subroutine add_aray
+        
         subroutine dgeocomps(z,f,spax,spay,mnx,mny,nx,ny,dugdx,dugdy,dvgdx,dvgdy) ! in :_aoslib:dgeocomps.f
             real*4 dimension(mnx,mny) :: z
             real*4 dimension(mnx,mny),depend(mnx,mny) :: f

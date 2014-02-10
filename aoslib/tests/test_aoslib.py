@@ -1027,3 +1027,32 @@ def test_cclpar():
         print(res2)
     assert_allclose(res1, test_res1, atol=ATOL)
     assert_allclose(res2, test_res2, atol=ATOL)
+
+
+def test_add_aray():
+
+    # simple test
+    res = aoslib.add_aray([1, 2, 3], [4, 5, 6])
+    assert res.shape == (3, 1)
+    assert res.dtype == 'float32'
+    assert_allclose(res, [[5], [7], [9]])
+
+    # mode parameter
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 1.e37])[2, 0] > 9.e36
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 1.e37], mode=0)[2, 0] > 9.e36
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 1.e37], mode=1)[2, 0] == 3
+
+    # ni parameter
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6])[2, 0] == 9
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=3)[2, 0] == 9
+
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=2)[2, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=2)[1, 0] == 7
+
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=1)[2, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=1)[1, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=1)[0, 0] == 5
+
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[2, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[1, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[0, 0] == 0
