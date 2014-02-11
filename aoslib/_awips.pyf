@@ -15,19 +15,20 @@ python module _awips ! in
         end subroutine add_aray
         
         subroutine dgeocomps(z,f,spax,spay,mnx,mny,nx,ny,dugdx,dugdy,dvgdx,dvgdy) ! in :_aoslib:dgeocomps.f
-            real*4 dimension(mnx,mny) :: z
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: f
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: spax
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: spay
-            integer*4, optional,check(shape(z,0)==mnx),depend(z) :: mnx=shape(z,0)
-            integer*4, optional,check(shape(z,1)==mny),depend(z) :: mny=shape(z,1)
-            integer*4 :: nx
-            integer*4 :: ny
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: dugdx
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: dugdy
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: dvgdx
-            real*4 dimension(mnx,mny),depend(mnx,mny) :: dvgdy
+            real*4 dimension(mnx,mny), intent(in) :: z
+            real*4 dimension(mnx,mny), intent(in) :: f
+            real*4 dimension(mnx,mny), intent(in) :: spax
+            real*4 dimension(mnx,mny), intent(in) :: spay
+            integer*4, intent(hide), depend(z) :: mnx=shape(z,0)
+            integer*4, intent(hide), depend(z) :: mny=shape(z,1)
+            integer*4, intent(in) :: nx
+            integer*4, intent(in) :: ny
+            real*4 dimension(mnx,mny), intent(out) :: dugdx
+            real*4 dimension(mnx,mny), intent(out) :: dugdy
+            real*4 dimension(mnx,mny), intent(out) :: dvgdx
+            real*4 dimension(mnx,mny), intent(out) :: dvgdy
         end subroutine dgeocomps
+        
         subroutine meanomega(p1,u1,v1,p2,u2,v2,dx,dy,dt,work,omega,mnx,nx,ny) ! in :_aoslib:meanomega.f
             real*4 dimension(mnx,ny) :: p1
             real*4 dimension(mnx,ny),depend(mnx,ny) :: u1

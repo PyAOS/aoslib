@@ -1423,3 +1423,36 @@ def add_aray(a, b, **kwargs):
 
     """
     return _awips.add_aray(a, b, **kwargs)
+
+
+def dgeocomps(z, f, spax, spay, nx, ny):
+    """
+    Add two arrays element-by-element.
+
+    Parameters
+    ----------
+    z : array_like, 2D
+        Height field, missing/bad values are indicated by a value of 99998.0.
+    f : array_like, 2D
+        Coriolis parameter, must be the same shape as z.
+    spax : array_like, 2D
+        Grid spacing in the X direction, must be the same shape as z.
+    spay : array_like, 2D
+        Grid spacing in the Y direction, must be the same shape as z.
+    nx : int
+        First dimension of the spax and spay grids.
+    ny : int
+        Last dimension of the spax and spay grids.
+
+    Returns
+    -------
+    dugdx, dugdy, dvgdx, dvgdx : array, 2D, float32
+        d/dx and d/dy of the u and v components of geostrophic wind.
+        Boundaries and bad/missing values are denoted by a value of 1e37.
+
+    Notes
+    -----
+    1) No quality control is performed in this routine.
+
+    """
+    return _awips.dgeocomps(z, f, spax, spay, nx, ny)
