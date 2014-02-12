@@ -1456,3 +1456,41 @@ def dgeocomps(z, f, spax, spay, nx, ny):
 
     """
     return _awips.dgeocomps(z, f, spax, spay, nx, ny)
+
+
+def meanomega(p1, u1, v1, p2, u2, v2, dx, dy, dt, **kwargs):
+    """
+    Calculate the mean adiabatic omega on a theta surface.
+
+    Add two arrays element-by-element.
+
+    Parameters
+    ----------
+    p1, p2 : array_like, 2D
+        Pressures in mb.
+    u1, u2 : array_like, 2D
+        U components of the wind speed in m/s. Must have the same shape as p1.
+    v1, v2 : array_like, 2D
+        V components of the wind speed in m/s. Must have the same shape as p1.
+    dx, dy : array_like, 2D
+        Surface spacing in the x and y dimensions in meters.  Must have the
+        same shape as p1.
+    dt : float
+        Time period between parameters in seconds.
+    nx : int, optional
+        Number of rows to calculate omega for, default is all rows.
+
+    Returns
+    -------
+    omega : array, 2D, float32
+        Mean adiabatic omega in mb/s.
+
+    Notes
+    -----
+    1) No quality control is performed in this routine.
+    2) 99998.0 and 1e37 are used to indicate bad/missing values in the
+         parameters
+       and output.
+
+    """
+    return _awips.meanomega(p1, u1, v1, p2, u2, v1, dx, dy, dt, **kwargs)

@@ -30,21 +30,22 @@ python module _awips ! in
         end subroutine dgeocomps
         
         subroutine meanomega(p1,u1,v1,p2,u2,v2,dx,dy,dt,work,omega,mnx,nx,ny) ! in :_aoslib:meanomega.f
-            real*4 dimension(mnx,ny) :: p1
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: u1
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: v1
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: p2
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: u2
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: v2
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: dx
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: dy
-            real*4 :: dt
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: work
-            real*4 dimension(mnx,ny),depend(mnx,ny) :: omega
-            integer*4, optional,check(shape(p1,0)==mnx),depend(p1) :: mnx=shape(p1,0)
-            integer*4 :: nx
-            integer*4, optional,check(shape(p1,1)==ny),depend(p1) :: ny=shape(p1,1)
+            real*4 dimension(mnx,ny), intent(in) :: p1
+            real*4 dimension(mnx,ny), intent(in) :: u1
+            real*4 dimension(mnx,ny), intent(in) :: v1
+            real*4 dimension(mnx,ny), intent(in) :: p2
+            real*4 dimension(mnx,ny), intent(in) :: u2
+            real*4 dimension(mnx,ny), intent(in) :: v2
+            real*4 dimension(mnx,ny), intent(in) :: dx
+            real*4 dimension(mnx,ny), intent(in) :: dy
+            real*4 intent(in):: dt
+            real*4 dimension(mnx,ny), intent(hide) :: work
+            real*4 dimension(mnx,ny), intent(out) :: omega
+            integer*4, intent(hide), depend(p1) :: mnx=shape(p1,0)
+            integer*4 optional, check(nx<=shape(p1,0)) :: nx=shape(p1, 0)
+            integer*4, intent(hide), depend(p1) :: ny=shape(p1,1)
         end subroutine meanomega
+        
         subroutine smooth(input,output,mnx,ix,iy,smth) ! in :_aoslib:smooth.f
             real dimension(mnx,iy) :: input
             real dimension(mnx,iy),depend(mnx,iy) :: output
