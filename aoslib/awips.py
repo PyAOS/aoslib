@@ -1494,3 +1494,38 @@ def meanomega(p1, u1, v1, p2, u2, v2, dx, dy, dt, **kwargs):
 
     """
     return _awips.meanomega(p1, u1, v1, p2, u2, v1, dx, dy, dt, **kwargs)
+
+
+def smooth(input, smth, **kwargs):
+    """
+    Smooth the input array.
+
+    The filter applied to the input array is of type
+
+    z(i) = (1 - s) z(i) + s(z(i+1) + z(i-1)) / 2
+
+    Run this function in 2 passes with smth of 0.5 and -0.5 to damp 2dx waves
+    comletely but leave 4dx and longer waves with little damping.
+
+    Parameters
+    ----------
+    input : array_like, 2D
+        Input signal, missing values are indicated with the values >99998.
+    smth : float
+        Smoothing filter parameter.
+    ix : int, optional
+        Number of rows for input to smooth, default is all rows.  Rows beyond
+        ix will be zero filled.
+
+    Returns
+    -------
+    ouput : array, 2D, float32
+        Output signal after smoothing.  Missing values are indicated with
+        values > 99998.
+
+    Notes
+    -----
+    1) No quality control is performed in this routine.
+
+    """
+    return _awips.smooth(input, smth, **kwargs)

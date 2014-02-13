@@ -47,13 +47,14 @@ python module _awips ! in
         end subroutine meanomega
         
         subroutine smooth(input,output,mnx,ix,iy,smth) ! in :_aoslib:smooth.f
-            real dimension(mnx,iy) :: input
-            real dimension(mnx,iy),depend(mnx,iy) :: output
-            integer, optional,check(shape(input,0)==mnx),depend(input) :: mnx=shape(input,0)
-            integer :: ix
-            integer, optional,check(shape(input,1)==iy),depend(input) :: iy=shape(input,1)
-            real :: smth
+            real dimension(mnx,iy), intent(in) :: input
+            real dimension(mnx,iy), intent(out) :: output
+            integer, intent(hide), depend(input) :: mnx=shape(input,0)
+            integer, optional, check(ix<=shape(input, 0)) :: ix=shape(input, 0)
+            integer, intent(hide), depend(input) :: iy=shape(input,1)
+            real, intent(in) :: smth
         end subroutine smooth
+        
         subroutine add_by_cnst(a,const_bn,result,mni,ni,nj) ! in :_aoslib:addbycnst.f
             real dimension(mni,nj) :: a
             real :: const_bn
