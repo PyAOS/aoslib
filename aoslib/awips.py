@@ -1529,3 +1529,34 @@ def smooth(input, smth, **kwargs):
 
     """
     return _awips.smooth(input, smth, **kwargs)
+
+
+def add_by_cnst(a, const, **kwargs):
+    """
+    Add a constant to elements in an array.
+
+    Similar functionality can be obtained using the addition operator on
+    NumPy arrays.  Use of this function is not recommended.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Input array, values greater than 1e36 are considered missing/bad.
+    const : float
+        Constant to add to elements of the array.
+    ni : int, optional
+        Number of rows to calculate addition for, default is all rows.
+        Rows beyond ni in will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Result of adding const to elements in a, missing/bad values are
+        indicated by 1.e37.
+
+    Notes
+    -----
+    1) No quality control is peformed in this routine.
+
+    """
+    return _awips.add_by_cnst(a, const, **kwargs)

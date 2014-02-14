@@ -1056,3 +1056,27 @@ def test_add_aray():
     assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[2, 0] == 0
     assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[1, 0] == 0
     assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[0, 0] == 0
+
+
+def test_add_by_cnst():
+
+    # simple test
+    a = np.ones((2, 3))
+    assert np.all(aoslib.add_by_cnst(a, 2) == 3)
+    assert np.all(aoslib.add_by_cnst(a, -1) == 0)
+    assert np.all(aoslib.add_by_cnst(a, 10) == 11)
+
+    # ni parameter
+    a = np.ones((2, 3))
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=2) == 3)
+
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=1)[0] == 3)
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=1)[1] == 0)
+
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=0) == 0)
+
+    # missing value
+    a = np.ones((2, 3))
+    a[1, 1] = 1e37
+    assert aoslib.add_by_cnst(a, 2)[0, 0] == 3
+    assert aoslib.add_by_cnst(a, 2)[1, 1] != 3

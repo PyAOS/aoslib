@@ -56,13 +56,14 @@ python module _awips ! in
         end subroutine smooth
         
         subroutine add_by_cnst(a,const_bn,result,mni,ni,nj) ! in :_aoslib:addbycnst.f
-            real dimension(mni,nj) :: a
-            real :: const_bn
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
+            real dimension(mni,nj), intent(in) :: a
+            real intent(in) :: const_bn
+            real dimension(mni,nj), intent(out) :: result
+            integer, intent(hide), depend(a) :: mni=shape(a,0)
+            integer optional, check(ni<=shape(a, 0)) :: ni=shape(a, 0)
+            integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine add_by_cnst
+        
         subroutine div_aray(a,b,result,mni,ni,nj) ! in :_aoslib:divaray.f
             real dimension(mni,nj) :: a
             real dimension(mni,nj),depend(mni,nj) :: b
