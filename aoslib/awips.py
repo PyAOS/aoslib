@@ -1560,3 +1560,34 @@ def add_by_cnst(a, const, **kwargs):
 
     """
     return _awips.add_by_cnst(a, const, **kwargs)
+
+
+def div_aray(a, b, **kwargs):
+    """
+    Divide two arrays element-by-element.
+
+    Similar functionality can be obtained using the division operator on
+    NumPy arrays.  Use of this function is not recommended.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Array holding numerators.
+    b : array_like, 2D
+        Array holding denominators.
+    ni : int, optional
+        Number of rows to calculate division for, default is all rows.
+        Rows beyond ni in will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Element by element division of a over b, missing/bad values and
+        division by zero are inducated by 1.e37.
+
+    Notes
+    -----
+    1) No quality control is peformed in this routine.
+
+    """
+    return _awips.div_aray(a, b, **kwargs)

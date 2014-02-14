@@ -1080,3 +1080,21 @@ def test_add_by_cnst():
     a[1, 1] = 1e37
     assert aoslib.add_by_cnst(a, 2)[0, 0] == 3
     assert aoslib.add_by_cnst(a, 2)[1, 1] != 3
+
+
+def test_div_aray():
+
+    # simple test
+    a = np.ones((2, 3))
+    b = np.ones((2, 3)) * 2
+    assert np.all(aoslib.div_aray(a, b) == 0.5)
+
+    # ni parameter
+    a = np.ones((2, 3))
+    b = np.ones((2, 3)) * 2
+    assert np.all(aoslib.div_aray(a, b, ni=2) == 0.5)
+
+    assert np.all(aoslib.div_aray(a, b, ni=1)[0] == 0.5)
+    assert np.all(aoslib.div_aray(a, b, ni=1)[1] == 0)
+
+    assert np.all(aoslib.div_aray(a, b, ni=0) == 0)
