@@ -1427,7 +1427,7 @@ def add_aray(a, b, **kwargs):
 
 def dgeocomps(z, f, spax, spay, nx, ny):
     """
-    Add two arrays element-by-element.
+    Calculate components of geostrophic wind.
 
     Parameters
     ----------
@@ -1462,8 +1462,6 @@ def meanomega(p1, u1, v1, p2, u2, v2, dx, dy, dt, **kwargs):
     """
     Calculate the mean adiabatic omega on a theta surface.
 
-    Add two arrays element-by-element.
-
     Parameters
     ----------
     p1, p2 : array_like, 2D
@@ -1488,9 +1486,9 @@ def meanomega(p1, u1, v1, p2, u2, v2, dx, dy, dt, **kwargs):
     Notes
     -----
     1) No quality control is performed in this routine.
-    2) 99998.0 and 1e37 are used to indicate bad/missing values in the
-         parameters
-       and output.
+    2) Value >99998.0 in the p, u and v parameters are used to indicate
+       missing/bad values.  A value of 1e37 is used in the output omega array
+       at the positions where such values are found.
 
     """
     return _awips.meanomega(p1, u1, v1, p2, u2, v1, dx, dy, dt, **kwargs)
