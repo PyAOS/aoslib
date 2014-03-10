@@ -1425,7 +1425,7 @@ def add_aray(a, b, **kwargs):
     return _awips.add_aray(a, b, **kwargs)
 
 
-def dgeocomps(z, f, spax, spay, nx, ny):
+def dgeocomps(z, f, spax, spay, **kwargs):
     """
     Calculate components of geostrophic wind.
 
@@ -1439,10 +1439,12 @@ def dgeocomps(z, f, spax, spay, nx, ny):
         Grid spacing in the X direction, must be the same shape as z.
     spay : array_like, 2D
         Grid spacing in the Y direction, must be the same shape as z.
-    nx : int
-        First dimension of the spax and spay grids.
-    ny : int
-        Last dimension of the spax and spay grids.
+    nx, ny : int, optional
+        Number of valid grid spacings (starting from 1) in the first and
+        second dimension of the spax, and spay arrays.  If not specified all
+        values in spax and spay will be used.  Note that if these limits are
+        specified locations beyond the limits in the output are indeterminate
+        and should not be used.
 
     Returns
     -------
@@ -1455,7 +1457,7 @@ def dgeocomps(z, f, spax, spay, nx, ny):
     1) No quality control is performed in this routine.
 
     """
-    return _awips.dgeocomps(z, f, spax, spay, nx, ny)
+    return _awips.dgeocomps(z, f, spax, spay, **kwargs)
 
 
 def meanomega(p1, u1, v1, p2, u2, v2, dx, dy, dt, **kwargs):

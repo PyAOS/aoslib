@@ -21,8 +21,8 @@ python module _awips ! in
             real*4 dimension(mnx,mny), intent(in) :: spay
             integer*4, intent(hide), depend(z) :: mnx=shape(z,0)
             integer*4, intent(hide), depend(z) :: mny=shape(z,1)
-            integer*4, intent(in) :: nx
-            integer*4, intent(in) :: ny
+            integer*4, optional :: nx=shape(z,0)
+            integer*4, optional :: ny=shape(z,1)
             real*4 dimension(mnx,mny), intent(out) :: dugdx
             real*4 dimension(mnx,mny), intent(out) :: dugdy
             real*4 dimension(mnx,mny), intent(out) :: dvgdx
