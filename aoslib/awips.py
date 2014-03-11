@@ -1387,3 +1387,207 @@ def thetawa(temp, dwpt, pres, iw,  **kwargs):
 
     """
     return _awips.thetawa(temp, dwpt, pres, iw,  **kwargs)
+
+
+def add_aray(a, b, **kwargs):
+    """
+    Add two arrays element-by-element.
+
+    Similar functionality can be obtained using the addition operator on
+    NumPy arrays.  Use of this function is not recommended.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        First array to add.
+    b : array_like, 2D
+        Seconds array to add.
+    mode : int, optional
+        Flag controlling how bad values are handled.
+        When mode is 0 bad values (>1.e36) in a or b are propagated to the
+        results array and marked (1.e37).  When mode is non-zero then bad
+        values are treated as zeros.
+    ni : int, optional
+        Number of rows to calculate addition for, default is all rows.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Element by element addition of a and b.
+
+    Notes
+    -----
+    1) No quality control is peformed in this routine.
+    2) See the discussion in the `mode` parameter on the effects of values
+       >1.e36 in the input arrays `a` and `b`
+
+    """
+    return _awips.add_aray(a, b, **kwargs)
+
+
+def dgeocomps(z, f, spax, spay, **kwargs):
+    """
+    Calculate components of geostrophic wind.
+
+    Parameters
+    ----------
+    z : array_like, 2D
+        Height field, missing/bad values are indicated by a value of 99998.0.
+    f : array_like, 2D
+        Coriolis parameter, must be the same shape as z.
+    spax : array_like, 2D
+        Grid spacing in the X direction, must be the same shape as z.
+    spay : array_like, 2D
+        Grid spacing in the Y direction, must be the same shape as z.
+    nx, ny : int, optional
+        Number of valid grid spacings (starting from 1) in the first and
+        second dimension of the spax, and spay arrays.  If not specified all
+        values in spax and spay will be used.  Note that if these limits are
+        specified locations beyond the limits in the output are indeterminate
+        and should not be used.
+
+    Returns
+    -------
+    dugdx, dugdy, dvgdx, dvgdx : array, 2D, float32
+        d/dx and d/dy of the u and v components of geostrophic wind.
+        Boundaries and bad/missing values are denoted by a value of 1e37.
+
+    Notes
+    -----
+    1) No quality control is performed in this routine.
+
+    """
+    return _awips.dgeocomps(z, f, spax, spay, **kwargs)
+
+
+def meanomega(p1, u1, v1, p2, u2, v2, dx, dy, dt, **kwargs):
+    """
+    Calculate the mean adiabatic omega on a theta surface.
+
+    Parameters
+    ----------
+    p1, p2 : array_like, 2D
+        Pressures in mb.
+    u1, u2 : array_like, 2D
+        U components of the wind speed in m/s. Must have the same shape as p1.
+    v1, v2 : array_like, 2D
+        V components of the wind speed in m/s. Must have the same shape as p1.
+    dx, dy : array_like, 2D
+        Surface spacing in the x and y dimensions in meters.  Must have the
+        same shape as p1.
+    dt : float
+        Time period between parameters in seconds.
+    nx : int, optional
+        Number of rows to calculate omega for, default is all rows.
+
+    Returns
+    -------
+    omega : array, 2D, float32
+        Mean adiabatic omega in mb/s.
+
+    Notes
+    -----
+    1) No quality control is performed in this routine.
+    2) Value >99998.0 in the p, u and v parameters are used to indicate
+       missing/bad values.  A value of 1e37 is used in the output omega array
+       at the positions where such values are found.
+
+    """
+    return _awips.meanomega(p1, u1, v1, p2, u2, v1, dx, dy, dt, **kwargs)
+
+
+def smooth(input, smth, **kwargs):
+    """
+    Smooth the input array.
+
+    The filter applied to the input array is of type
+
+    z(i) = (1 - s) z(i) + s(z(i+1) + z(i-1)) / 2
+
+    Run this function in 2 passes with smth of 0.5 and -0.5 to damp 2dx waves
+    comletely but leave 4dx and longer waves with little damping.
+
+    Parameters
+    ----------
+    input : array_like, 2D
+        Input signal, missing values are indicated with the values >99998.
+    smth : float
+        Smoothing filter parameter.
+    ix : int, optional
+        Number of rows for input to smooth, default is all rows.  Rows beyond
+        ix will be zero filled.
+
+    Returns
+    -------
+    ouput : array, 2D, float32
+        Output signal after smoothing.  Missing values are indicated with
+        values > 99998.
+
+    Notes
+    -----
+    1) No quality control is performed in this routine.
+
+    """
+    return _awips.smooth(input, smth, **kwargs)
+
+
+def add_by_cnst(a, const, **kwargs):
+    """
+    Add a constant to elements in an array.
+
+    Similar functionality can be obtained using the addition operator on
+    NumPy arrays.  Use of this function is not recommended.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Input array, values greater than 1e36 are considered missing/bad.
+    const : float
+        Constant to add to elements of the array.
+    ni : int, optional
+        Number of rows to calculate addition for, default is all rows.
+        Rows beyond ni in will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Result of adding const to elements in a, missing/bad values are
+        indicated by 1.e37.
+
+    Notes
+    -----
+    1) No quality control is peformed in this routine.
+
+    """
+    return _awips.add_by_cnst(a, const, **kwargs)
+
+
+def div_aray(a, b, **kwargs):
+    """
+    Divide two arrays element-by-element.
+
+    Similar functionality can be obtained using the division operator on
+    NumPy arrays.  Use of this function is not recommended.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Array holding numerators.
+    b : array_like, 2D
+        Array holding denominators.
+    ni : int, optional
+        Number of rows to calculate division for, default is all rows.
+        Rows beyond ni in will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Element by element division of a over b, missing/bad values and
+        division by zero are inducated by 1.e37.
+
+    Notes
+    -----
+    1) No quality control is peformed in this routine.
+
+    """
+    return _awips.div_aray(a, b, **kwargs)

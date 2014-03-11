@@ -1027,3 +1027,74 @@ def test_cclpar():
         print(res2)
     assert_allclose(res1, test_res1, atol=ATOL)
     assert_allclose(res2, test_res2, atol=ATOL)
+
+
+def test_add_aray():
+
+    # simple test
+    res = aoslib.add_aray([1, 2, 3], [4, 5, 6])
+    assert res.shape == (3, 1)
+    assert res.dtype == 'float32'
+    assert_allclose(res, [[5], [7], [9]])
+
+    # mode parameter
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 1.e37])[2, 0] > 9.e36
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 1.e37], mode=0)[2, 0] > 9.e36
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 1.e37], mode=1)[2, 0] == 3
+
+    # ni parameter
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6])[2, 0] == 9
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=3)[2, 0] == 9
+
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=2)[2, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=2)[1, 0] == 7
+
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=1)[2, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=1)[1, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=1)[0, 0] == 5
+
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[2, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[1, 0] == 0
+    assert aoslib.add_aray([1, 2, 3], [4, 5, 6], ni=0)[0, 0] == 0
+
+
+def test_add_by_cnst():
+
+    # simple test
+    a = np.ones((2, 3))
+    assert np.all(aoslib.add_by_cnst(a, 2) == 3)
+    assert np.all(aoslib.add_by_cnst(a, -1) == 0)
+    assert np.all(aoslib.add_by_cnst(a, 10) == 11)
+
+    # ni parameter
+    a = np.ones((2, 3))
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=2) == 3)
+
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=1)[0] == 3)
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=1)[1] == 0)
+
+    assert np.all(aoslib.add_by_cnst(a, 2, ni=0) == 0)
+
+    # missing value
+    a = np.ones((2, 3))
+    a[1, 1] = 1e37
+    assert aoslib.add_by_cnst(a, 2)[0, 0] == 3
+    assert aoslib.add_by_cnst(a, 2)[1, 1] != 3
+
+
+def test_div_aray():
+
+    # simple test
+    a = np.ones((2, 3))
+    b = np.ones((2, 3)) * 2
+    assert np.all(aoslib.div_aray(a, b) == 0.5)
+
+    # ni parameter
+    a = np.ones((2, 3))
+    b = np.ones((2, 3)) * 2
+    assert np.all(aoslib.div_aray(a, b, ni=2) == 0.5)
+
+    assert np.all(aoslib.div_aray(a, b, ni=1)[0] == 0.5)
+    assert np.all(aoslib.div_aray(a, b, ni=1)[1] == 0)
+
+    assert np.all(aoslib.div_aray(a, b, ni=0) == 0)
