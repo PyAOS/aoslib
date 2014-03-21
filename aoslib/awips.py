@@ -688,12 +688,28 @@ def cgp(tempip, dwptip, presip, thetawip, toppres, deltap, **kwargs):
 
 def constant(a,const,**kwargs):
     """
-    Sets an existing array to an array of constants
-    a: initial array
-    const: constant for each entry to be set to
-    mni: inital number of rows in array
-    ni: number of columns in array to set to constant
-    nj: number of columns in array
+    Modifies an existing array, replacing entries with a constant value.
+
+    Parameters
+    ----------
+    a: array_like, 2D
+        Input array.
+    const: real
+	Real number to reset array values to.
+    ni: int, optional
+	Number of rows in array to modify
+
+    Returns
+    -------
+    a: array_like, 2D
+	Output array with desired entries set to const
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.constant([[1000., 950.],[925., 975.]], -3.14, ni=1)
+    array([[-3.14, -3.14],[925., 975.]], dtype=float32)
+
     """
     return _awips.constant(a,const,**kwargs)
 

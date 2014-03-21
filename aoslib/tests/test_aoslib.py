@@ -134,6 +134,9 @@ def test_natlog():
     if verbose:
         print "natlog:"
         print aoslib.natlog(a)
+        print aoslib.natlog(a,ni=3)
+        print aoslib.natlog(a,ni=2)
+        print aoslib.natlog(a,ni=1)
 
     assert_allclose(aoslib.natlog(a), three_rows, atol=ATOL)
     assert_allclose(aoslib.natlog(a,ni=3), three_rows, atol=ATOL)
@@ -469,17 +472,39 @@ def test_calctw():
 
 def test_constant():
     # a, const, ni, nj
-    a = np.array([[1000., 950.], [925., 975.]],dtype='float32')
-    const = 1.0
-    mni = 2
-    nj = 2
+    a = [[1000., 950.],[925., 975.],[-960., -1020.]]
+    const = -3.14
 
-    result = np.array([[1.0,1.0],[1.0,1.0]],dtype='float32')
+    three_rows = np.array(
+	[[-3.14,-3.14],
+	[-3.14,-3.14],
+	[-3.14, -3.14]],dtype='float32')
+    two_rows = np.array(
+	[[-3.14,-3.14],
+	[-3.14,-3.14],
+	[-960., -1020.]],dtype='float32')
+    one_row = np.array(
+	[[-3.14,-3.14],
+	[925.,975.],
+	[-960., -1020.]],dtype='float32')
+    zero_rows = np.array(
+        [[1000., 950.], 
+        [925., 975.],
+        [-960., -1020.]],dtype='float32')
+
     if verbose:
         print "constant:"
         print aoslib.constant(a, const)
+        print aoslib.constant(a, const, ni=3)
+        print aoslib.constant(a, const, ni=2)
+        print aoslib.constant(a, const, ni=1)
+        print aoslib.constant(a, const, ni=0)
 
-    assert_allclose(aoslib.constant(a,const), result, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const), three_rows, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=1), one_row, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=0), zero_rows, atol=ATOL)
 
 
 def test_crossvectors():

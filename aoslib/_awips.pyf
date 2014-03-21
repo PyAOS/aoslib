@@ -961,7 +961,7 @@ python module _awips ! in
             real dimension(nlvls),depend(nlvls) :: tvir
         end subroutine virtualt
         subroutine constant(a,const_bn,mni,ni,nj) ! in :_aoslib:constant.f
-            real dimension(mni,nj), intent(out) :: a
+            real dimension(mni,nj), intent(in,out) :: a
             real, intent(in) :: const_bn
             integer, intent(hide),depend(a) :: mni=shape(a,0)
             integer, optional,check(ni<=shape(a,0)), depend(a) :: ni=shape(a,0)
