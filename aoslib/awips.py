@@ -151,6 +151,34 @@ def calccondprdef(p, t, rh, **kwargs):
     return _awips.calccondprdef(p, t, rh, **kwargs)
 
 
+def natlog(a, **kwargs):
+    """
+    Calculates the natural log of a field. b = ln(a)
+
+    Parameters
+    ----------
+    a : 2D input array
+    ni : int, optional
+         Number of rows to calculate natural log for, default is all rows.
+    
+    Returns
+    -------
+    b : array, 2D
+        natural log of input array, a
+
+    Notes
+    -----
+    Input array values > 1.e36 or <= 0 return 1.e37 in return array
+
+    Examples
+    --------
+    >>> import asolib
+    >>> aoslib.natlog([[1,2.718281828],[-1, 5.e36]])
+    array([[0, 1],[1.e37, 1.e37]], dtype=float32)
+    """
+    return _awips.natlog(a, **kwargs)
+
+
 def alt2press(alt, z, **kwargs):
     """
     Calculate pressure from elevation and altimeter setting.
