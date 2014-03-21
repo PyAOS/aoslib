@@ -686,6 +686,18 @@ def cgp(tempip, dwptip, presip, thetawip, toppres, deltap, **kwargs):
                       **kwargs)
 
 
+def constant(a,const,**kwargs):
+    """
+    Sets an existing array to an array of constants
+    a: initial array
+    const: constant for each entry to be set to
+    mni: inital number of rows in array
+    ni: number of columns in array to set to constant
+    nj: number of columns in array
+    """
+    return _awips.constant(a,const,**kwargs)
+
+
 def crossvectors(ax, ay, bx, by, **kwargs):
     """
     Cross a field of vectors by another.  Each i,j in one array of vectors

@@ -467,6 +467,21 @@ def test_calctw():
     assert_allclose(aoslib.calctw(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_constant():
+    # a, const, ni, nj
+    a = np.array([[1000., 950.], [925., 975.]],dtype='float32')
+    const = 1.0
+    mni = 2
+    nj = 2
+
+    result = np.array([[1.0,1.0],[1.0,1.0]],dtype='float32')
+    if verbose:
+        print "constant:"
+        print aoslib.constant(a, const)
+
+    assert_allclose(aoslib.constant(a,const), result, atol=ATOL)
+
+
 def test_crossvectors():
     # ax, ay, bx, by
     ax = [[1000., 950.], [925., 975.], [960., 1020.]]
