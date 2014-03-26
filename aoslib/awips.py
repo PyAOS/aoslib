@@ -806,6 +806,34 @@ def derived_icing(t, rh, **kwargs):
     return _awips.derived_icing(t, rh, **kwargs)
 
 
+def exparay(a, **kwargs):
+    """
+    Calculates the exponential of a field. b = exp(a)
+
+    Parameters
+    ----------
+    a : 2D input array
+    ni : int, optional
+         Number of rows to calculate exponential, default is all rows.
+    
+    Returns
+    -------
+    b : array, 2D
+        exponential of input array, a
+
+    Notes
+    -----
+    Input array values > 1.e36 or <= 0 return 1.e37 in return array
+
+    Examples
+    --------
+    >>> import asolib
+    >>> aoslib.exparay([[,],[,]])
+    array([[,],[,]], dtype=float32)
+    """
+    return _awips.exparay(a, **kwargs)
+
+
 def hgt2pres(z, **kwargs):
     """
     Calculate pressure from height based on a standard atmosphere.

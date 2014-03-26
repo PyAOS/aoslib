@@ -308,11 +308,11 @@ python module _awips ! in
             real dimension(mni,nj), intent(out), depend(mni,nj) :: li
         end subroutine calcli
         subroutine exp_aray(a,b,mni,ni,nj) ! in :_aoslib:exparay.f
-            real dimension(mni,nj) :: a
-            real dimension(mni,nj),depend(mni,nj) :: b
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
+            real dimension(mni,nj), intent(in) :: a
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: b
+            integer, intent(hide), depend(a) :: mni=shape(a,0)
+            integer, optional,check(ni<=shape(a,0)) :: ni=shape(a,0)
+            integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine exp_aray
         subroutine negarea(pcb,tcb,hcb,plfc,hlfc,tlfc,thdpar,eptpar,p,ht,te,tp,npar,cinfrmcape,negbuoy) ! in :_aoslib:negarea.f
             real :: pcb

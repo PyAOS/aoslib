@@ -585,6 +585,30 @@ def test_derived_icing():
     assert_allclose(aoslib.derived_icing(t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_exparay():
+    # a,b,mni,ni,nj
+    a = [[0., 1.],[1.0986129, 2.],[-1, 86]]
+
+    three_rows = np.array(
+        [[1, 2.718281828],[3, 7.389056099],[0.367879441,1.e37]], dtype='float32')
+    two_rows = np.array(
+        [[1, 2.718281828],[3, 7.389056099],[0, 0]], dtype='float32')
+    one_row = np.array(
+        [[1, 2.718281828],[0, 0],[0, 0]], dtype='float32')
+
+    if verbose:
+        print "exparay:"
+        print aoslib.exparay(a)
+        print aoslib.exparay(a,ni=3)
+        print aoslib.exparay(a,ni=2)
+        print aoslib.exparay(a,ni=1)
+
+    assert_allclose(aoslib.exparay(a), three_rows, atol=ATOL)
+    assert_allclose(aoslib.exparay(a,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.exparay(a,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.exparay(a,ni=1), one_row, atol=ATOL)
+
+
 def test_hgt2pres():
     # z, ni
     z = [[2000., 2500.], [5000., 5500.], [7000., 8000.]]
