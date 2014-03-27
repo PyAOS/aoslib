@@ -677,6 +677,31 @@ def test_mixrat():
     assert_allclose(aoslib.mixrat(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_multbycnst():
+    # a,const,result,mni,ni,nj
+    a = [[1., 360.],[3., -1.5],[0., 5.e36]]
+    const = 3.
+
+    three_rows = np.array(
+        [[3, 1080.],[9, -4.5],[0,1.e37]], dtype='float32')
+    two_rows = np.array(
+        [[3, 1080.],[9, -4.5],[0, 0]], dtype='float32')
+    one_row = np.array(
+        [[3, 1080.],[0, 0],[0, 0]], dtype='float32')
+
+    if verbose:
+        print "mult_by_cnst:"
+        print aoslib.mult_by_cnst(a,const)
+        print aoslib.mult_by_cnst(a,const,ni=3)
+        print aoslib.mult_by_cnst(a,const,ni=2)
+        print aoslib.mult_by_cnst(a,const,ni=1)
+
+    assert_allclose(aoslib.mult_by_cnst(a,const), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mult_by_cnst(a,const,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mult_by_cnst(a,const,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.mult_by_cnst(a,const,ni=1), one_row, atol=ATOL)
+
+
 def test_mslp2thkns():
     # mslp,hgt, ni
     mslp = [[1000., 950.], [925., 975.], [960., 1020.]]

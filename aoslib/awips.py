@@ -151,6 +151,40 @@ def calccondprdef(p, t, rh, **kwargs):
     return _awips.calccondprdef(p, t, rh, **kwargs)
 
 
+def mult_by_cnst(a, const, **kwargs):
+    """
+    Routine to multiply an array by a real constant.  Each i,j in the 
+    array is multiplied by the constant. 
+
+    Original : 01-13-89     Peter A. Stamus
+               08-21-89     Add bad data check.
+               09-20-89     Add implicit none.
+
+    Parameters
+    ----------
+    a : 2D input array
+    const: real
+    ni : int, optional
+         Number of rows to calculate natural log for, default is all rows.
+    
+    Returns
+    -------
+    result : array, 2D
+        Resulting array after multiplying each a(i,j) * const
+
+    Notes
+    -----
+    Input array values > 1.e36 return 1.e37 in return array
+
+    Examples
+    --------
+    >>> import asolib
+    >>> aoslib.multbycnst([[1,360],[-1, 5.e36]],3)
+    array([[3, 900],[-3, 1.e37]], dtype=float32)
+    """
+    return _awips.mult_by_cnst(a,const, **kwargs)
+
+
 def natlog(a, **kwargs):
     """
     Calculates the natural log of a field. b = ln(a)
