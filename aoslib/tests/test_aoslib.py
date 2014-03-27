@@ -597,16 +597,16 @@ def test_exparay():
         [[1, 2.718281828],[0, 0],[0, 0]], dtype='float32')
 
     if verbose:
-        print "exparay:"
-        print aoslib.exparay(a)
-        print aoslib.exparay(a,ni=3)
-        print aoslib.exparay(a,ni=2)
-        print aoslib.exparay(a,ni=1)
+        print "exp_aray:"
+        print aoslib.exp_aray(a)
+        print aoslib.exp_aray(a,ni=3)
+        print aoslib.exp_aray(a,ni=2)
+        print aoslib.exp_aray(a,ni=1)
 
-    assert_allclose(aoslib.exparay(a), three_rows, atol=ATOL)
-    assert_allclose(aoslib.exparay(a,ni=3), three_rows, atol=ATOL)
-    assert_allclose(aoslib.exparay(a,ni=2), two_rows, atol=ATOL)
-    assert_allclose(aoslib.exparay(a,ni=1), one_row, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a), three_rows, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a,ni=1), one_row, atol=ATOL)
 
 
 def test_hgt2pres():

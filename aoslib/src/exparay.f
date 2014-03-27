@@ -18,7 +18,7 @@ c
 	  else if(a(i,j) .lt. -85.0) then
 	    b(i,j) = 0.0
 	  else
-            b(i,j) = exp(b(i,j))
+            b(i,j) = exp(a(i,j))
 	  endif
 1	continue
 c

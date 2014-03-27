@@ -806,7 +806,7 @@ def derived_icing(t, rh, **kwargs):
     return _awips.derived_icing(t, rh, **kwargs)
 
 
-def exparay(a, **kwargs):
+def exp_aray(a, **kwargs):
     """
     Calculates the exponential of a field. b = exp(a)
 
@@ -828,10 +828,10 @@ def exparay(a, **kwargs):
     Examples
     --------
     >>> import asolib
-    >>> aoslib.exparay([[,],[,]])
-    array([[,],[,]], dtype=float32)
+    >>> aoslib.exparay([[0,1],[-1,86]])
+    array([[1,2.718281828],[0.367879441,1.e37]], dtype=float32)
     """
-    return _awips.exparay(a, **kwargs)
+    return _awips.exp_aray(a, **kwargs)
 
 
 def hgt2pres(z, **kwargs):
