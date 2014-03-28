@@ -187,7 +187,7 @@ def mult_by_cnst(a, const, **kwargs):
 
 def natlog(a, **kwargs):
     """
-    Calculates the natural log of a field. b = ln(a)
+    Calculates the natural log of a field. b = ln(a).
 
     Parameters
     ----------
@@ -198,7 +198,7 @@ def natlog(a, **kwargs):
     Returns
     -------
     b : array, 2D
-        natural log of input array, a
+        Natural log of input array, a
 
     Notes
     -----
@@ -842,7 +842,7 @@ def derived_icing(t, rh, **kwargs):
 
 def exp_aray(a, **kwargs):
     """
-    Calculates the exponential of a field. b = exp(a)
+    Calculates the exponential of a field. b = exp(a).
 
     Parameters
     ----------
