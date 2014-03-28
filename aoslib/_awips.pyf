@@ -278,11 +278,11 @@ python module _awips ! in
             real*4 intent(out) :: esat
         end function esat
         subroutine natlog(a,b,mni,ni,nj) ! in :_aoslib:natlog.f
-            real dimension(mni,nj) :: a
-            real dimension(mni,nj),depend(mni,nj) :: b
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
+            real dimension(mni,nj), intent(in) :: a
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: b
+            integer intent(hide), depend(a) :: mni=shape(a,0)
+            integer optional, check(ni<=shape(a,0)) :: ni=shape(a,0)
+            integer intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine natlog
         subroutine sweatidx(tt,td8,u8,v8,u5,v5,mni,ni,nj,q) ! in :_aoslib:sweatidx.f
             real dimension(mni,nj) :: tt
@@ -961,11 +961,11 @@ python module _awips ! in
             real dimension(nlvls),depend(nlvls) :: tvir
         end subroutine virtualt
         subroutine constant(a,const_bn,mni,ni,nj) ! in :_aoslib:constant.f
-            real dimension(mni,nj) :: a
-            real :: const_bn
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
+            real dimension(mni,nj), intent(in,out) :: a
+            real, intent(in) :: const_bn
+            integer, intent(hide),depend(a) :: mni=shape(a,0)
+            integer, optional,check(ni<=shape(a,0)), depend(a) :: ni=shape(a,0)
+            integer, intent(hide),depend(a) :: nj=shape(a,1)
         end subroutine constant
         function b1_odd(arg) ! in :_aoslib:IntrinsicFunctions.f
             byte :: arg

@@ -120,6 +120,30 @@ def test_calccondprdef():
     assert_allclose(aoslib.calccondprdef(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_natlog():
+    # a,b,mni,ni,nj
+    a = [[1, 2.718281828],[3, 7.389056099],[-1, 5.e36]]
+
+    three_rows = np.array(
+        [[0, 1],[1.0986129, 2],[1.e37,1.e37]], dtype='float32')
+    two_rows = np.array(
+        [[0, 1],[1.0986129, 2],[0, 0]], dtype='float32')
+    one_row = np.array(
+        [[0, 1],[0, 0],[0, 0]], dtype='float32')
+
+    if verbose:
+        print "natlog:"
+        print aoslib.natlog(a)
+        print aoslib.natlog(a,ni=3)
+        print aoslib.natlog(a,ni=2)
+        print aoslib.natlog(a,ni=1)
+
+    assert_allclose(aoslib.natlog(a), three_rows, atol=ATOL)
+    assert_allclose(aoslib.natlog(a,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.natlog(a,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.natlog(a,ni=1), one_row, atol=ATOL)
+
+
 def test_alt2press():
     # alt,z, ni
     alt = [[700., 950.], [625., 675.], [760., 1020.]]
@@ -444,6 +468,43 @@ def test_calctw():
     assert_allclose(aoslib.calctw(p, t, rh, ni=3), three_rows, atol=ATOL)
     assert_allclose(aoslib.calctw(p, t, rh, ni=2), two_rows, atol=ATOL)
     assert_allclose(aoslib.calctw(p, t, rh, ni=1), one_row, atol=ATOL)
+
+
+def test_constant():
+    # a, const, ni, nj
+    a = [[1000., 950.],[925., 975.],[-960., -1020.]]
+    const = -3.14
+
+    three_rows = np.array(
+	[[-3.14,-3.14],
+	[-3.14,-3.14],
+	[-3.14, -3.14]],dtype='float32')
+    two_rows = np.array(
+	[[-3.14,-3.14],
+	[-3.14,-3.14],
+	[-960., -1020.]],dtype='float32')
+    one_row = np.array(
+	[[-3.14,-3.14],
+	[925.,975.],
+	[-960., -1020.]],dtype='float32')
+    zero_rows = np.array(
+        [[1000., 950.], 
+        [925., 975.],
+        [-960., -1020.]],dtype='float32')
+
+    if verbose:
+        print "constant:"
+        print aoslib.constant(a, const)
+        print aoslib.constant(a, const, ni=3)
+        print aoslib.constant(a, const, ni=2)
+        print aoslib.constant(a, const, ni=1)
+        print aoslib.constant(a, const, ni=0)
+
+    assert_allclose(aoslib.constant(a,const), three_rows, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=1), one_row, atol=ATOL)
+    assert_allclose(aoslib.constant(a,const,ni=0), zero_rows, atol=ATOL)
 
 
 def test_crossvectors():
