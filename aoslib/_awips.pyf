@@ -1297,14 +1297,14 @@ python module _awips ! in
             real*4 dimension(mni,nj), intent(hide), depend(mni,nj) :: dtdy
         end subroutine slfront
         subroutine derivative(a1,a2,b1,b2,result,mni,ni,nj) ! in :_aoslib:derivative.f
-            real dimension(mni,nj) :: a1
-            real dimension(mni,nj),depend(mni,nj) :: a2
-            real dimension(mni,nj),depend(mni,nj) :: b1
-            real dimension(mni,nj),depend(mni,nj) :: b2
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(a1,0)==mni),depend(a1) :: mni=shape(a1,0)
-            integer :: ni
-            integer, optional,check(shape(a1,1)==nj),depend(a1) :: nj=shape(a1,1)
+            real dimension(mni,nj), intent(in) :: a1
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: a2
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: b1
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: b2
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: result
+            integer, intent(hide), depend(a1) :: mni=shape(a1,0)
+            integer, optional,check(ni<=shape(a1,0)) :: ni=shape(a1,0)
+            integer, intent(hide), depend(a1) :: nj=shape(a1,1)
         end subroutine derivative
         subroutine matsln(a,v,p,s,mn,n,status) ! in :_aoslib:matsln.f
             real*4 dimension(mn + 1,mn + 1) :: a

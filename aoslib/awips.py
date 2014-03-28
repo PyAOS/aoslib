@@ -808,6 +808,45 @@ def ctop(p, ht, vv, peqlev, **kwargs):
     return _awips.ctop(p, ht, vv, peqlev, **kwargs)
 
 
+def derivative(a1, a2, b1, b2, result, **kwargs):
+    """
+    Calculate the derivative of a with respect to b.
+    J Ramer Jun 95
+
+    Parameters
+    ----------
+    a1 : array_like, 2D
+        First a coordinate.
+    a2 : array_like, 2D
+        Second a coordinate.
+    b1 : array_like, 2D
+        First b coordinate.
+    b2 : array_like, 2D
+        Second b coordinate.
+    ni : int, optional
+        Number of rows to calculate derivative for, default is all rows.
+
+    Returns
+    -------
+    result : array
+        Derivative of a with respect to b.
+
+    Notes
+    -----
+    Values > 1.e36 in any of the input arrays
+      result in the flag value 1.e37 in the return array.
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.derivative([[5.,1.], [[10.,2]])
+    array([[5]], dtype=float32)
+
+    """
+    return _awips.calctd(t, rh, **kwargs)
+
+
+
 def derived_icing(t, rh, **kwargs):
     """
     Calculate derived icing value from temperature and relative humidity

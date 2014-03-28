@@ -554,6 +554,31 @@ def test_ctop():
     assert_allclose(aoslib.ctop(p, ht, vv, peqlev), answer, atol=ATOL)
 
 
+def test_derivative():
+    a1 = [[100., 3.], [50., 2.], [-50., 1.], [0., 5.e36]]
+    t = [[300., 299.], [199., 200.], [99, 100.]]
+    rh = [[50.0, 50.0], [50.0, 50.0], [50., 50.]]
+    three_rows = np.array([[288.70455933, 287.78875732],
+                           [194.34051514, 195.29127502],
+                           [97.8838501, 98.86090851]], dtype='float32')
+    two_rows = np.array([[288.70455933, 287.78875732],
+                         [194.34051514, 195.29127502],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[288.70455933,  287.78875732],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+    if verbose:
+        print aoslib.derivative(a1, a2, b1, b2)
+        print aoslib.derivative(a1, a2, b1, b2 ni=3)
+        print aoslib.derivative(a1, a2, b1, b2 ni=2)
+        print aoslib.derivative(a1, a2, b1, b2 ni=1)
+
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2, three_rows, atol=ATOL)
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2 ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2 ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2 ni=1), one_row, atol=ATOL)
+
+
 def test_derived_icing():
     # t, rh, ni
     t = [[300., 299.], [268., 274.], [258., 267.43572]]
