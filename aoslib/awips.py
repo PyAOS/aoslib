@@ -808,7 +808,7 @@ def ctop(p, ht, vv, peqlev, **kwargs):
     return _awips.ctop(p, ht, vv, peqlev, **kwargs)
 
 
-def derivative(a1, a2, b1, b2, result, **kwargs):
+def derivative(a1, a2, b1, b2, **kwargs):
     """
     Calculate the derivative of a with respect to b.
     J Ramer Jun 95
@@ -833,18 +833,20 @@ def derivative(a1, a2, b1, b2, result, **kwargs):
 
     Notes
     -----
-    Values > 1.e36 in any of the input arrays
-      result in the flag value 1.e37 in the return array.
+    1) If b1=b2, flag value 1.e37 is returned.
+    2) Values > 1.e36 in any of the input arrays
+       result in the flag value 1.e37 in the return array.
+    3) Values < -1.e36 in any of the input arrays
+       result in inf in the return array.
 
     Examples
     --------
     >>> import aoslib
-    >>> aoslib.derivative([[5.,1.], [[10.,2]])
-    array([[5]], dtype=float32)
+    >>> aoslib.derivative([[100.,50.]],[[2.,4.]],[[5.,10.]],[[10.,15.]])
+    array([[-19.6, -9.2]], dtype=float32)
 
     """
-    return _awips.calctd(t, rh, **kwargs)
-
+    return _awips.derivative(a1, a2, b1, b2, **kwargs)
 
 
 def derived_icing(t, rh, **kwargs):
