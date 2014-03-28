@@ -941,6 +941,51 @@ def hgt2pres(z, **kwargs):
     return _awips.hgt2pres(z, **kwargs)
 
 
+def lintrans(a, mult, add, **kwargs):
+    """
+    Routine to do a linear translation on an array. Each i,j in the 
+    array is multiplied by 'mult' and then added to by 'add'. 
+
+    History
+    -------
+    01-13-89     Peter A. Stamus.
+    08-21-89     Add bad data check.
+    09-20-89     Add implicit none.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Input array.
+    mult : real
+        Real value to mutliply each array value.
+    add : real
+        Real value to add to each array value.
+    ni : int, optional
+        Number of rows to perform linear translation on,
+        default is all rows.
+
+    Returns
+    -------
+    result : array, 2D
+        Linear translation of input array. Will have same shape as a.
+
+    Notes
+    -----
+    1) Values > 1.e36 in any of the input arrays
+       are replaced with flag value 1.e37 in the return array.
+    2) Values < -1.e36 in any of the input arrays
+       are replaced with inf in the return array.
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.lintrans([[2.,10.],[-1.,0.]], 2., 100.)
+    array([[104, 120],[98., 100]], dtype=float32)
+
+    """
+    return _awips.lintrans(a, mult, add, **kwargs)
+
+
 def mixrat(p, t, rh, **kwargs):
     """
     Calculate mixing ratio from the pressure, temperature, and relative

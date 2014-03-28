@@ -1269,13 +1269,13 @@ python module _awips ! in
             real dimension(nlvls),depend(nlvls) :: rho
         end subroutine density
         subroutine lintrans(a,mult,add,result,mni,ni,nj) ! in :_aoslib:lintrans.f
-            real dimension(mni,nj) :: a
-            real :: mult
-            real :: add
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
+            real dimension(mni,nj), intent(in) :: a
+            real intent(in) :: mult
+            real intent(in) :: add
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: result
+            integer, intent(hide), depend(a) :: mni=shape(a,0)
+            integer, optional,check(ni<=shape(a,0)) :: ni=shape(a,0)
+            integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine lintrans
         subroutine slfront(z,t,p,dx,dy,coriolis,mni,ni,nj,fgen,slqx,slqy,w1,w2,w3,dtdx,dtdy) ! in :_aoslib:slfront.f
             real*4 dimension(mni,nj), intent(in) :: z

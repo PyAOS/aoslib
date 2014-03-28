@@ -667,6 +667,32 @@ def test_hgt2pres():
     assert_allclose(aoslib.hgt2pres(z, ni=1), one_row, atol=ATOL)
 
 
+def test_lintrans():
+    a = [[300., 299.], [199., 200.], [99, 100.]]
+    mult = 2.
+    add = 100. 
+
+    three_rows = np.array([[700., 698.],
+                           [498., 500.],
+                           [298., 300.]], dtype='float32')
+    two_rows = np.array([[700., 698.],
+                         [498., 500.],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[700.,  698.],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+    if verbose:
+        print aoslib.lintrans(a, mult, add)
+        print aoslib.lintrans(a, mult, add, ni=3)
+        print aoslib.lintrans(a, mult, add, ni=2)
+        print aoslib.lintrans(a, mult, add, ni=1)
+
+    assert_allclose(aoslib.lintrans(a, mult, add), three_rows, atol=ATOL)
+    assert_allclose(aoslib.lintrans(a, mult, add, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.lintrans(a, mult, add, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.lintrans(a, mult, add, ni=1), one_row, atol=ATOL)
+
+
 def test_mixrat():
     # p,t,rh, ni
     p = np.array([[1000., 950.],
