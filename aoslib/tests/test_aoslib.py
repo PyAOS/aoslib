@@ -613,6 +613,34 @@ def test_derived_icing():
     assert_allclose(aoslib.derived_icing(t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_dotvectors():
+    ax = [[300., 299.], [199., 200.], [99, 100.]]
+    ay = [[-1.,1.], [10., -10.], [3.14, 2.17]]
+    bx = [[2., 4.], [8., 16.], [32, 64.]]
+    by = [[1., 1.], [2., 2.], [3., 4.]]
+
+    three_rows = np.array([[599., 1197.],
+                           [1612., 3180.],
+                           [3177.41992, 6408.68018]], dtype='float32')
+    two_rows = np.array([[599., 1197.],
+                         [1612., 3180.],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[599., 1197.],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+
+    if verbose:
+        print aoslib.dotvectors(ax, ay, bx, by)
+        print aoslib.dotvectors(ax, ay, bx, by, ni=3)
+        print aoslib.dotvectors(ax, ay, bx, by, ni=2)
+        print aoslib.dotvectors(ax, ay, bx, by, ni=1)
+
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by), three_rows, atol=ATOL)
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by, ni=1), one_row, atol=ATOL)
+
+
 def test_exparay():
     # a,b,mni,ni,nj
     a = [[0., 1.],[1.0986129, 2.],[-1, 86]]

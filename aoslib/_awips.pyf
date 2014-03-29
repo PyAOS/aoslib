@@ -128,14 +128,14 @@ python module _awips ! in
             real :: avspd
         end subroutine avwind
         subroutine dotvectors(ax,ay,bx,by,result,mni,ni,nj) ! in :_aoslib:dotvectors.f
-            real dimension(mni,nj) :: ax
-            real dimension(mni,nj),depend(mni,nj) :: ay
-            real dimension(mni,nj),depend(mni,nj) :: bx
-            real dimension(mni,nj),depend(mni,nj) :: by
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(ax,0)==mni),depend(ax) :: mni=shape(ax,0)
-            integer :: ni
-            integer, optional,check(shape(ax,1)==nj),depend(ax) :: nj=shape(ax,1)
+            real dimension(mni,nj), intent(in) :: ax
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: ay
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: bx
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: by
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: result
+            integer, intent(hide), depend(ax) :: mni=shape(ax,0)
+            integer, optional, check(ni<=shape(ax,0)) :: ni=shape(ax,0)
+            integer, intent(hide), depend(ax) :: nj=shape(ax,1)
         end subroutine dotvectors
         subroutine mult_aray(a,b,result,mni,ni,nj) ! in :_aoslib:multaray.f
             real dimension(mni,nj) :: a
