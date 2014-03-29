@@ -1046,9 +1046,9 @@ def mult_by_cnst(a, const, **kwargs):
 
     History
     -------
-|   01-13-89     Peter A. Stamus
-|   08-21-89     Add bad data check.
-|   09-20-89     Add implicit none.
+    01-13-89     Peter A. Stamus
+    08-21-89     Add bad data check.
+    09-20-89     Add implicit none.
 
     Parameters
     ----------
@@ -1105,6 +1105,48 @@ def natlog(a, **kwargs):
 
     """
     return _awips.natlog(a, **kwargs)
+
+
+def powercalc(a, b, **kwargs):
+    """
+    Raise each item in the field a to the power in field b.
+    result = a**b.
+
+    History
+    -------
+    J Ramer Jun 95
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Base array.
+    b : array_like, 2D
+        Exponent array.
+    ni : int, optional
+        Number of rows to raise to given power, default is all rows.
+
+    Returns
+    -------
+    result : array, 2D
+        Will have same shape as a and b.
+
+    Notes
+    -----
+    1) Values > 1.e10 in any of the input arrays
+       are replaced with flag value 1.e37 in the return array.
+    2) Zero raised to zero returns zero.
+    3) Zero raised to negative value returns flag value 1.e37.
+    4) Negative value raised to fraction returns flag value 1.e37.
+    5) Calls jint(arg) function from IntrinsicFunctions.inc.
+ 
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.powercalc([[2.]], [[8.]])
+    array([[ 256.]], dtype=float32)
+
+    """
+    return _awips.powercalc(a, b, **kwargs)
 
 
 def press2alt(p, z, **kwargs):

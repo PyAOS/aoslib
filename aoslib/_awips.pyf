@@ -127,6 +127,7 @@ python module _awips ! in
             real :: avdir
             real :: avspd
         end subroutine avwind
+
         subroutine dotvectors(ax,ay,bx,by,result,mni,ni,nj) ! in :_aoslib:dotvectors.f
             real dimension(mni,nj), intent(in) :: ax
             real dimension(mni,nj), intent(in), depend(mni,nj) :: ay
@@ -137,6 +138,7 @@ python module _awips ! in
             integer, optional, check(ni<=shape(ax,0)) :: ni=shape(ax,0)
             integer, intent(hide), depend(ax) :: nj=shape(ax,1)
         end subroutine dotvectors
+
         subroutine mult_aray(a,b,result,mni,ni,nj) ! in :_aoslib:multaray.f
             real dimension(mni,nj) :: a
             real dimension(mni,nj),depend(mni,nj) :: b
@@ -171,6 +173,7 @@ python module _awips ! in
             real*4 intent(in) :: td
             real*4 intent(out) :: dzdlnp
         end function dzdlnp
+
         subroutine mult_by_cnst(a,const_bn,result,mni,ni,nj) ! in :_aoslib:multbycnst.f
             real dimension(mni,nj), intent(in) :: a
             real intent(in) :: const_bn
@@ -179,6 +182,7 @@ python module _awips ! in
             integer, optional,check(ni<=shape(a,0)) :: ni=shape(a,0)
             integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine mult_by_cnst
+
         subroutine sub_aray(a,b,result,mni,ni,nj) ! in :_aoslib:subaray.f
             real dimension(mni,nj) :: a
             real dimension(mni,nj),depend(mni,nj) :: b
@@ -277,6 +281,7 @@ python module _awips ! in
             real*4 intent(in) :: t
             real*4 intent(out) :: esat
         end function esat
+
         subroutine natlog(a,b,mni,ni,nj) ! in :_aoslib:natlog.f
             real dimension(mni,nj), intent(in) :: a
             real dimension(mni,nj), intent(out), depend(mni,nj) :: b
@@ -284,6 +289,7 @@ python module _awips ! in
             integer optional, check(ni<=shape(a,0)) :: ni=shape(a,0)
             integer intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine natlog
+
         subroutine sweatidx(tt,td8,u8,v8,u5,v5,mni,ni,nj,q) ! in :_aoslib:sweatidx.f
             real dimension(mni,nj) :: tt
             real dimension(mni,nj),depend(mni,nj) :: td8
@@ -307,6 +313,7 @@ python module _awips ! in
             integer,intent(hide),depend(p) :: nj=shape(p,1)
             real dimension(mni,nj), intent(out), depend(mni,nj) :: li
         end subroutine calcli
+
         subroutine exp_aray(a,b,mni,ni,nj) ! in :_aoslib:exparay.f
             real dimension(mni,nj), intent(in) :: a
             real dimension(mni,nj), intent(out), depend(mni,nj) :: b
@@ -314,6 +321,7 @@ python module _awips ! in
             integer, optional,check(ni<=shape(a,0)) :: ni=shape(a,0)
             integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine exp_aray
+
         subroutine negarea(pcb,tcb,hcb,plfc,hlfc,tlfc,thdpar,eptpar,p,ht,te,tp,npar,cinfrmcape,negbuoy) ! in :_aoslib:negarea.f
             real :: pcb
             real :: tcb
@@ -549,14 +557,16 @@ python module _awips ! in
             real dimension(mni,nj),depend(mni,nj) :: qy
             real dimension(mni,nj),depend(mni,nj) :: fgen
         end subroutine frontogen
+
         subroutine powercalc(a,b,result,mni,ni,nj) ! in :_aoslib:powercalc.f
-            real dimension(mni,nj) :: a
-            real dimension(mni,nj),depend(mni,nj) :: b
-            real dimension(mni,nj),depend(mni,nj) :: result
-            integer, optional,check(shape(a,0)==mni),depend(a) :: mni=shape(a,0)
-            integer :: ni
-            integer, optional,check(shape(a,1)==nj),depend(a) :: nj=shape(a,1)
+            real dimension(mni,nj), intent(in) :: a
+            real dimension(mni,nj), intent(in), depend(mni,nj) :: b
+            real dimension(mni,nj), intent(out), depend(mni,nj) :: result
+            integer, intent(hide), depend(a) :: mni=shape(a,0)
+            integer, optional,check(ni<=shape(a,0)), :: ni=shape(a,0)
+            integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine powercalc
+
         subroutine totals(p,t,td,nlvls,totidx,crstot,vertot) ! in :_aoslib:totals.f
             real dimension(1) :: p
             real dimension(1) :: t
@@ -960,6 +970,7 @@ python module _awips ! in
             integer, optional,check(len(t)>=nlvls),depend(t) :: nlvls=len(t)
             real dimension(nlvls),depend(nlvls) :: tvir
         end subroutine virtualt
+
         subroutine constant(a,const_bn,mni,ni,nj) ! in :_aoslib:constant.f
             real dimension(mni,nj), intent(in,out) :: a
             real, intent(in) :: const_bn
@@ -967,6 +978,7 @@ python module _awips ! in
             integer, optional,check(ni<=shape(a,0)), depend(a) :: ni=shape(a,0)
             integer, intent(hide),depend(a) :: nj=shape(a,1)
         end subroutine constant
+
         function b1_odd(arg) ! in :_aoslib:IntrinsicFunctions.f
             byte :: arg
             logical*2 :: b1_odd
@@ -1268,6 +1280,7 @@ python module _awips ! in
             integer, optional,check(len(p)>=nlvls),depend(p) :: nlvls=len(p)
             real dimension(nlvls),depend(nlvls) :: rho
         end subroutine density
+
         subroutine lintrans(a,mult,add,result,mni,ni,nj) ! in :_aoslib:lintrans.f
             real dimension(mni,nj), intent(in) :: a
             real intent(in) :: mult
@@ -1277,6 +1290,7 @@ python module _awips ! in
             integer, optional,check(ni<=shape(a,0)) :: ni=shape(a,0)
             integer, intent(hide), depend(a) :: nj=shape(a,1)
         end subroutine lintrans
+
         subroutine slfront(z,t,p,dx,dy,coriolis,mni,ni,nj,fgen,slqx,slqy,w1,w2,w3,dtdx,dtdy) ! in :_aoslib:slfront.f
             real*4 dimension(mni,nj), intent(in) :: z
             real*4 dimension(mni,nj), intent(in) :: t
@@ -1296,6 +1310,7 @@ python module _awips ! in
             real*4 dimension(mni,nj), intent(hide), depend(mni,nj) :: dtdx
             real*4 dimension(mni,nj), intent(hide), depend(mni,nj) :: dtdy
         end subroutine slfront
+
         subroutine derivative(a1,a2,b1,b2,result,mni,ni,nj) ! in :_aoslib:derivative.f
             real dimension(mni,nj), intent(in) :: a1
             real dimension(mni,nj), intent(in), depend(mni,nj) :: a2
@@ -1306,6 +1321,7 @@ python module _awips ! in
             integer, optional,check(ni<=shape(a1,0)) :: ni=shape(a1,0)
             integer, intent(hide), depend(a1) :: nj=shape(a1,1)
         end subroutine derivative
+
         subroutine matsln(a,v,p,s,mn,n,status) ! in :_aoslib:matsln.f
             real*4 dimension(mn + 1,mn + 1) :: a
             real*4 dimension(mn + 1),depend(mn) :: v

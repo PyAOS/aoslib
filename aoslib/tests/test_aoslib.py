@@ -815,6 +815,31 @@ def test_mslp2thkns():
     assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=1), one_row, atol=ATOL)
 
 
+def test_powercalc():
+    a = [[2., -3.], [0.5, 200.], [-1., 0.]]
+    b = [[20., 3.], [2., 0.1], [-0.25, 0.]]
+    three_rows = np.array([[1048576., -27.],
+                           [0.25, 1.69864655],
+                           [1.e37, 0.]], dtype='float32')
+    two_rows = np.array([[1048576., -27.],
+                         [0.25, 1.69864655],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[1048576., -27.],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+
+    if verbose:
+        print aoslib.powercalc(a, b)
+        print aoslib.powercalc(a, b, ni=3)
+        print aoslib.powercalc(a, b, ni=2)
+        print aoslib.powercalc(a, b, ni=1)
+
+    assert_allclose(aoslib.powercalc(a, b), three_rows, atol=ATOL)
+    assert_allclose(aoslib.powercalc(a, b, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.powercalc(a, b, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.powercalc(a, b, ni=1), one_row, atol=ATOL)
+
+
 def test_press2alt():
     # p,z, ni
     p = [[1000., 950.], [925., 975.], [960., 1020.]]
