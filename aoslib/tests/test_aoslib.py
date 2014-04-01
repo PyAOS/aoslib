@@ -554,6 +554,34 @@ def test_ctop():
     assert_allclose(aoslib.ctop(p, ht, vv, peqlev), answer, atol=ATOL)
 
 
+def test_derivative():
+    a1 = [[100., 50.], [-50., 100.], [0., 5.e39]]
+    a2 = [[2., 4.], [8., 16.], [32., 64.]]
+    b1 = [[5., 10.], [15., 20.], [25., 30.]]
+    b2 = [[10., 15.], [20., 25.], [30., 35.]]
+
+    three_rows = np.array([[-19.6, -9.2],
+                           [11.6, -16.8],
+                           [6.4, 1.e37]], dtype='float32')
+    two_rows = np.array([[-19.6, -9.2],
+                         [11.6, -16.8],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[-19.6, -9.2],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+    if verbose:
+        print "derivative:"
+        print aoslib.derivative(a1, a2, b1, b2)
+        print aoslib.derivative(a1, a2, b1, b2, ni=3)
+        print aoslib.derivative(a1, a2, b1, b2, ni=2)
+        print aoslib.derivative(a1, a2, b1, b2, ni=1)
+
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2), three_rows, atol=ATOL)
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.derivative(a1, a2, b1, b2, ni=1), one_row, atol=ATOL)
+
+
 def test_derived_icing():
     # t, rh, ni
     t = [[300., 299.], [268., 274.], [258., 267.43572]]
@@ -585,6 +613,58 @@ def test_derived_icing():
     assert_allclose(aoslib.derived_icing(t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_dotvectors():
+    ax = [[300., 299.], [199., 200.], [99, 100.]]
+    ay = [[-1.,1.], [10., -10.], [3.14, 2.17]]
+    bx = [[2., 4.], [8., 16.], [32, 64.]]
+    by = [[1., 1.], [2., 2.], [3., 4.]]
+
+    three_rows = np.array([[599., 1197.],
+                           [1612., 3180.],
+                           [3177.41992, 6408.68018]], dtype='float32')
+    two_rows = np.array([[599., 1197.],
+                         [1612., 3180.],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[599., 1197.],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+
+    if verbose:
+        print aoslib.dotvectors(ax, ay, bx, by)
+        print aoslib.dotvectors(ax, ay, bx, by, ni=3)
+        print aoslib.dotvectors(ax, ay, bx, by, ni=2)
+        print aoslib.dotvectors(ax, ay, bx, by, ni=1)
+
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by), three_rows, atol=ATOL)
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.dotvectors(ax, ay, bx, by, ni=1), one_row, atol=ATOL)
+
+
+def test_exparay():
+    # a,b,mni,ni,nj
+    a = [[0., 1.],[1.0986129, 2.],[-1, 86]]
+
+    three_rows = np.array(
+        [[1, 2.718281828],[3, 7.389056099],[0.367879441,1.e37]], dtype='float32')
+    two_rows = np.array(
+        [[1, 2.718281828],[3, 7.389056099],[0, 0]], dtype='float32')
+    one_row = np.array(
+        [[1, 2.718281828],[0, 0],[0, 0]], dtype='float32')
+
+    if verbose:
+        print "exp_aray:"
+        print aoslib.exp_aray(a)
+        print aoslib.exp_aray(a,ni=3)
+        print aoslib.exp_aray(a,ni=2)
+        print aoslib.exp_aray(a,ni=1)
+
+    assert_allclose(aoslib.exp_aray(a), three_rows, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.exp_aray(a,ni=1), one_row, atol=ATOL)
+
+
 def test_hgt2pres():
     # z, ni
     z = [[2000., 2500.], [5000., 5500.], [7000., 8000.]]
@@ -613,6 +693,32 @@ def test_hgt2pres():
     assert_allclose(aoslib.hgt2pres(z, ni=3), three_rows, atol=ATOL)
     assert_allclose(aoslib.hgt2pres(z, ni=2), two_rows, atol=ATOL)
     assert_allclose(aoslib.hgt2pres(z, ni=1), one_row, atol=ATOL)
+
+
+def test_lintrans():
+    a = [[300., 299.], [199., 200.], [99, 100.]]
+    mult = 2.
+    add = 100. 
+
+    three_rows = np.array([[700., 698.],
+                           [498., 500.],
+                           [298., 300.]], dtype='float32')
+    two_rows = np.array([[700., 698.],
+                         [498., 500.],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[700.,  698.],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+    if verbose:
+        print aoslib.lintrans(a, mult, add)
+        print aoslib.lintrans(a, mult, add, ni=3)
+        print aoslib.lintrans(a, mult, add, ni=2)
+        print aoslib.lintrans(a, mult, add, ni=1)
+
+    assert_allclose(aoslib.lintrans(a, mult, add), three_rows, atol=ATOL)
+    assert_allclose(aoslib.lintrans(a, mult, add, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.lintrans(a, mult, add, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.lintrans(a, mult, add, ni=1), one_row, atol=ATOL)
 
 
 def test_mixrat():
@@ -653,6 +759,31 @@ def test_mixrat():
     assert_allclose(aoslib.mixrat(p, t, rh, ni=1), one_row, atol=ATOL)
 
 
+def test_multbycnst():
+    # a,const,result,mni,ni,nj
+    a = [[1., 360.],[3., -1.5],[0., 5.e36]]
+    const = 3.
+
+    three_rows = np.array(
+        [[3, 1080.],[9, -4.5],[0,1.e37]], dtype='float32')
+    two_rows = np.array(
+        [[3, 1080.],[9, -4.5],[0, 0]], dtype='float32')
+    one_row = np.array(
+        [[3, 1080.],[0, 0],[0, 0]], dtype='float32')
+
+    if verbose:
+        print "mult_by_cnst:"
+        print aoslib.mult_by_cnst(a,const)
+        print aoslib.mult_by_cnst(a,const,ni=3)
+        print aoslib.mult_by_cnst(a,const,ni=2)
+        print aoslib.mult_by_cnst(a,const,ni=1)
+
+    assert_allclose(aoslib.mult_by_cnst(a,const), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mult_by_cnst(a,const,ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.mult_by_cnst(a,const,ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.mult_by_cnst(a,const,ni=1), one_row, atol=ATOL)
+
+
 def test_mslp2thkns():
     # mslp,hgt, ni
     mslp = [[1000., 950.], [925., 975.], [960., 1020.]]
@@ -682,6 +813,31 @@ def test_mslp2thkns():
     assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=3), three_rows, atol=ATOL)
     assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=2), two_rows, atol=ATOL)
     assert_allclose(aoslib.mslp2thkns(mslp, hgt, ni=1), one_row, atol=ATOL)
+
+
+def test_powercalc():
+    a = [[2., -3.], [0.5, 200.], [-1., 0.]]
+    b = [[20., 3.], [2., 0.1], [-0.25, 0.]]
+    three_rows = np.array([[1048576., -27.],
+                           [0.25, 1.69864655],
+                           [1.e37, 0.]], dtype='float32')
+    two_rows = np.array([[1048576., -27.],
+                         [0.25, 1.69864655],
+                         [0., 0.]], dtype='float32')
+    one_row = np.array([[1048576., -27.],
+                        [0., 0.],
+                        [0., 0.]], dtype='float32')
+
+    if verbose:
+        print aoslib.powercalc(a, b)
+        print aoslib.powercalc(a, b, ni=3)
+        print aoslib.powercalc(a, b, ni=2)
+        print aoslib.powercalc(a, b, ni=1)
+
+    assert_allclose(aoslib.powercalc(a, b), three_rows, atol=ATOL)
+    assert_allclose(aoslib.powercalc(a, b, ni=3), three_rows, atol=ATOL)
+    assert_allclose(aoslib.powercalc(a, b, ni=2), two_rows, atol=ATOL)
+    assert_allclose(aoslib.powercalc(a, b, ni=1), one_row, atol=ATOL)
 
 
 def test_press2alt():

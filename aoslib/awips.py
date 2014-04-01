@@ -151,34 +151,6 @@ def calccondprdef(p, t, rh, **kwargs):
     return _awips.calccondprdef(p, t, rh, **kwargs)
 
 
-def natlog(a, **kwargs):
-    """
-    Calculates the natural log of a field. b = ln(a)
-
-    Parameters
-    ----------
-    a : 2D input array
-    ni : int, optional
-         Number of rows to calculate natural log for, default is all rows.
-    
-    Returns
-    -------
-    b : array, 2D
-        natural log of input array, a
-
-    Notes
-    -----
-    Input array values > 1.e36 or <= 0 return 1.e37 in return array
-
-    Examples
-    --------
-    >>> import asolib
-    >>> aoslib.natlog([[1,2.718281828],[-1, 5.e36]])
-    array([[0, 1],[1.e37, 1.e37]], dtype=float32)
-    """
-    return _awips.natlog(a, **kwargs)
-
-
 def alt2press(alt, z, **kwargs):
     """
     Calculate pressure from elevation and altimeter setting.
@@ -695,20 +667,21 @@ def constant(a,const,**kwargs):
     a: array_like, 2D
         Input array.
     const: real
-	Real number to reset array values to.
+	Real number to set array values to.
     ni: int, optional
-	Number of rows in array to modify
+	Number of rows in array to modify.
 
     Returns
     -------
-    a: array_like, 2D
-	Output array with desired entries set to const
+    a: array_like, 2D, float32
+	Output array with desired entries set to const.
 
     Examples
     --------
     >>> import aoslib
     >>> aoslib.constant([[1000., 950.],[925., 975.]], -3.14, ni=1)
-    array([[-3.14, -3.14],[925., 975.]], dtype=float32)
+    array([[  -3.1400001,   -3.1400001],
+           [ 925.       ,  975.       ]], dtype=float32)
 
     """
     return _awips.constant(a,const,**kwargs)
@@ -774,6 +747,45 @@ def ctop(p, ht, vv, peqlev, **kwargs):
     return _awips.ctop(p, ht, vv, peqlev, **kwargs)
 
 
+def derivative(a1, a2, b1, b2, **kwargs):
+    """
+    Calculate the derivative of a with respect to b.
+
+    Parameters
+    ----------
+    a1 : array_like, 2D
+        First a coordinate.
+    a2 : array_like, 2D
+        Second a coordinate.
+    b1 : array_like, 2D
+        First b coordinate.
+    b2 : array_like, 2D
+        Second b coordinate.
+    ni : int, optional
+        Number of rows to calculate derivative for, default is all rows.
+        Rows beyond ni will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Derivative of a with respect to b.
+
+    Notes
+    -----
+    1) If b1=b2, flag value 1.e37 is returned.
+    2) Values > 1.e36 in any of the input arrays
+       result in the flag value 1.e37 in the return array.
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.derivative([[100.,50.]],[[2.,4.]],[[5.,10.]],[[10.,15.]])
+    array([[-19.60000038,  -9.19999981]], dtype=float32)
+
+    """
+    return _awips.derivative(a1, a2, b1, b2, **kwargs)
+
+
 def derived_icing(t, rh, **kwargs):
     """
     Calculate derived icing value from temperature and relative humidity
@@ -806,6 +818,81 @@ def derived_icing(t, rh, **kwargs):
     return _awips.derived_icing(t, rh, **kwargs)
 
 
+def dotvectors(ax, ay, bx, by, **kwargs):
+    """
+    Dot a field of vectors by another.  Each element in one array of vectors
+    is dotted with the corresponding element in the other array of vectors.
+    
+    Parameters
+    ----------
+    ax : array_like, 2D
+         First a value.
+    ay : array_like, 2D
+         Second a value.
+    bx : array_like, 2D
+         First b value.
+    by : array_like, 2D
+         Second b value.
+    ni : int, optional
+         Number of rows to calculate dot product for, default is all rows.
+         Rows beyond ni will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+         Dot product of a and b. Will have same shape as ax.
+
+    Notes
+    -----
+    1) Values > 1.e36 in any of the input arrays are replaced
+       with flag value 1.e37 in the return array.
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.dotvectors([[3.,2]],[[-1.,1.]],[[2.,4.]],[[1.,1.]])
+    array([[ 5., 9.]], dtype=float32)
+
+    """
+    return _awips.dotvectors(ax, ay, bx, by, **kwargs)
+
+
+def exp_aray(a, **kwargs):
+    """
+    Calculates the exponential of a field. 
+    b = exp(a).
+
+    Parameters
+    ----------
+    a : array_like, 2D
+         Input array.
+    ni : int, optional
+         Number of rows to calculate exponential, default is all rows.
+         Rows beyond ni will be zero filled.
+
+    Returns
+    -------
+    b : array, 2D, float32
+        Exponential of input array, a.
+
+    Notes
+    -----
+    1) Input array values > 85 are replaced with 
+       flag value 1.e37 in return array.
+    2) Input array values < -85 are replaced with
+       0 in return array.
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.exp_aray([[0,1],[-1,86]])
+    array([[  1.00000000e+00,   2.71828175e+00],
+           [  3.67879450e-01,   9.99999993e+36]], dtype=float32)
+
+    """
+    return _awips.exp_aray(a, **kwargs)
+
+
 def hgt2pres(z, **kwargs):
     """
     Calculate pressure from height based on a standard atmosphere.
@@ -836,6 +923,44 @@ def hgt2pres(z, **kwargs):
 
     """
     return _awips.hgt2pres(z, **kwargs)
+
+
+def lintrans(a, mult, add, **kwargs):
+    """
+    Routine to do a linear translation on an array. Each element in the 
+    array is multiplied by 'mult' and then added to by 'add'.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Input array.
+    mult : real
+        Value to be multiplied by each element of the input array.
+    add : real
+        Value to be added to each element of the input array.
+    ni : int, optional
+        Number of rows to perform linear translation on, default is all rows.
+        Rows beyond ni will be zero filled.
+
+    Returns
+    -------
+    result : array, 2D, float32
+        Linear translation of input array. Will have same shape as a.
+
+    Notes
+    -----
+    1) Values > 1.e36 in any of the input arrays
+       are replaced with flag value 1.e37 in the return array.
+
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.lintrans([[2.,10.],[-1.,0.]], 2., 100.)
+    array([[ 104.,  120.],
+           [  98.,  100.]], dtype=float32)
+
+    """
+    return _awips.lintrans(a, mult, add, **kwargs)
 
 
 def mixrat(p, t, rh, **kwargs):
@@ -908,6 +1033,113 @@ def mslp2thkns(mslp, hgt, **kwargs):
 
     """
     return _awips.mslp2thkns(mslp, hgt, **kwargs)
+
+
+def mult_by_cnst(a, const, **kwargs):
+    """
+    Routine to multiply an array by a real constant. Each element in the 
+    array is multiplied by the constant. 
+
+    Parameters
+    ----------
+    a : array_like, 2D
+	Input array
+    const: real
+        Value to be multiplied by each element of the input array.
+    ni : int, optional
+        Number of rows to calculate natural log for, default is all rows.
+	Rows beyond ni will be zero filled.
+   
+    Returns
+    -------
+    result : array, 2D, float32
+        Resulting array after multiplying each element in a by const.
+        Will have the same shape as a.
+
+    Notes
+    -----
+    Input array values > 1.e36 return 1.e37 in return array.
+
+    Examples
+    --------
+    >>> import asolib
+    >>> aoslib.mult_by_cnst([[1,360],[-5.e36, 5.e36]],3)
+    array([[  3.00000000e+00,   1.08000000e+03],
+           [ -1.50000005e+37,   9.99999993e+36]], dtype=float32)
+
+    """
+    return _awips.mult_by_cnst(a,const, **kwargs)
+
+
+def natlog(a, **kwargs):
+    """
+    Calculates the natural log of a field. 
+    b = ln(a).
+
+    Parameters
+    ----------
+    a : array_like, 2D
+	Input array.
+    ni : int, optional
+        Number of rows to calculate natural log for, default is all rows.
+        Rows beyond ni will be zero filled.
+
+    Returns
+    -------
+    b : array, 2D, float32
+        Natural log of each element in input array, a.
+        Will have the same shape as a.
+
+    Notes
+    -----
+    Input array values > 1.e36 or <= 0 return 1.e37 in return array
+
+    Examples
+    --------
+    >>> import asolib
+    >>> aoslib.natlog([[1,2.718281828],[-1, 5.e36]])
+    array([[  0.00000000e+00,   1.00000000e+00],
+           [  9.99999993e+36,   9.99999993e+36]], dtype=float32)
+
+    """
+    return _awips.natlog(a, **kwargs)
+
+
+def powercalc(a, b, **kwargs):
+    """
+    Raise each item in the field a to the power in field b.
+    result = a**b.
+
+    Parameters
+    ----------
+    a : array_like, 2D
+        Array holding bases.
+    b : array_like, 2D
+        Array holding exponents.
+    ni : int, optional
+        Number of rows to raise to given power, default is all rows.
+
+    Returns
+    -------
+    result : array, 2D
+        Will have same shape as a and b.
+
+    Notes
+    -----
+    1) Values > 1.e10 in any of the input arrays
+       are replaced with flag value 1.e37 in the return array.
+    2) Zero raised to zero returns zero.
+    3) Zero raised to negative value returns flag value 1.e37.
+    4) Negative value raised to fraction returns flag value 1.e37.
+ 
+    Examples
+    --------
+    >>> import aoslib
+    >>> aoslib.powercalc([[2.]], [[8.]])
+    array([[ 256.]], dtype=float32)
+
+    """
+    return _awips.powercalc(a, b, **kwargs)
 
 
 def press2alt(p, z, **kwargs):
