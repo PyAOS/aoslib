@@ -667,14 +667,14 @@ def constant(a,const,**kwargs):
     a: array_like, 2D
         Input array.
     const: real
-	Real number to reset array values to.
+	Real number to set array values to.
     ni: int, optional
-	Number of rows in array to modify
+	Number of rows in array to modify.
 
     Returns
     -------
-    a: array_like, 2D
-	Output array with desired entries set to const
+    a: array_like, 2D, float32
+	Output array with desired entries set to const.
 
     Examples
     --------
@@ -750,7 +750,6 @@ def ctop(p, ht, vv, peqlev, **kwargs):
 def derivative(a1, a2, b1, b2, **kwargs):
     """
     Calculate the derivative of a with respect to b.
-    J Ramer Jun 95
 
     Parameters
     ----------
@@ -764,10 +763,11 @@ def derivative(a1, a2, b1, b2, **kwargs):
         Second b coordinate.
     ni : int, optional
         Number of rows to calculate derivative for, default is all rows.
+        Rows beyond ni will be zero filled.
 
     Returns
     -------
-    result : array
+    result : array, 2D, float32
         Derivative of a with respect to b.
 
     Notes
@@ -820,36 +820,32 @@ def derived_icing(t, rh, **kwargs):
 
 def dotvectors(ax, ay, bx, by, **kwargs):
     """
-    Dot a field of vectors by another.  Each i,j in one array of vectors
-    is dotted with the corresponding i,j in the other array of vectors.
+    Dot a field of vectors by another.  Each element in one array of vectors
+    is dotted with the corresponding element in the other array of vectors.
     
-    History
-    -------
-    J Ramer Jun 95
-
     Parameters
     ----------
-    aX : array_like, 2D
-         First a value
-    aY : array_like, 2D
-         Second a value
-    bX : array_like, 2D
-         First b value
-    bY : array_like, 2D
-         Second b value
+    ax : array_like, 2D
+         First a value.
+    ay : array_like, 2D
+         Second a value.
+    bx : array_like, 2D
+         First b value.
+    by : array_like, 2D
+         Second b value.
     ni : int, optional
          Number of rows to calculate dot product for, default is all rows.
+         Rows beyond ni will be zero filled.
 
     Returns
     -------
-    result : array, 2D
-         Will have same shape as t.
+    result : array, 2D, float32
+         Dot product of a and b. Will have same shape as ax.
 
     Notes
     -----
-    1) No quality control is peformed in this routine.
-    2) Values > 1.e36 in any of the input arrays
-       are replaced with flag value 1.e37 in the return array.
+    1) Values > 1.e36 in any of the input arrays are replaced
+       with flag value 1.e37 in the return array.
 
     Examples
     --------
@@ -863,26 +859,32 @@ def dotvectors(ax, ay, bx, by, **kwargs):
 
 def exp_aray(a, **kwargs):
     """
-    Calculates the exponential of a field. b = exp(a).
+    Calculates the exponential of a field. 
+    b = exp(a).
 
     Parameters
     ----------
-    a : 2D input array
+    a : array_like, 2D
+         Input array.
     ni : int, optional
          Number of rows to calculate exponential, default is all rows.
-    
+         Rows beyond ni will be zero filled.
+
     Returns
     -------
-    b : array, 2D
-        exponential of input array, a
+    b : array, 2D, float32
+        Exponential of input array, a.
 
     Notes
     -----
-    Input array values > 1.e36 or <= 0 return 1.e37 in return array
+    1) Input array values > 85 are replaced with 
+       flag value 1.e37 in return array.
+    2) Input array values < -85 are replaced with
+       0 in return array.
 
     Examples
     --------
-    >>> import asolib
+    >>> import aoslib
     >>> aoslib.exp_aray([[0,1],[-1,86]])
     array([[  1.00000000e+00,   2.71828175e+00],
            [  3.67879450e-01,   9.99999993e+36]], dtype=float32)
@@ -925,30 +927,24 @@ def hgt2pres(z, **kwargs):
 
 def lintrans(a, mult, add, **kwargs):
     """
-    Routine to do a linear translation on an array. Each i,j in the 
-    array is multiplied by 'mult' and then added to by 'add'. 
-
-    History
-    -------
-    01-13-89     Peter A. Stamus.
-    08-21-89     Add bad data check.
-    09-20-89     Add implicit none.
+    Routine to do a linear translation on an array. Each element in the 
+    array is multiplied by 'mult' and then added to by 'add'.
 
     Parameters
     ----------
     a : array_like, 2D
         Input array.
     mult : real
-        Real value to mutliply each array value.
+        Value to be multiplied by each element of the input array.
     add : real
-        Real value to add to each array value.
+        Value to be added to each element of the input array.
     ni : int, optional
-        Number of rows to perform linear translation on,
-        default is all rows.
+        Number of rows to perform linear translation on, default is all rows.
+        Rows beyond ni will be zero filled.
 
     Returns
     -------
-    result : array, 2D
+    result : array, 2D, float32
         Linear translation of input array. Will have same shape as a.
 
     Notes
@@ -1041,37 +1037,35 @@ def mslp2thkns(mslp, hgt, **kwargs):
 
 def mult_by_cnst(a, const, **kwargs):
     """
-    Routine to multiply an array by a real constant.  Each i,j in the 
+    Routine to multiply an array by a real constant. Each element in the 
     array is multiplied by the constant. 
-
-    History
-    -------
-    01-13-89     Peter A. Stamus
-    08-21-89     Add bad data check.
-    09-20-89     Add implicit none.
 
     Parameters
     ----------
-    a : 2D input array
+    a : array_like, 2D
+	Input array
     const: real
+        Value to be multiplied by each element of the input array.
     ni : int, optional
-         Number of rows to calculate natural log for, default is all rows.
-    
+        Number of rows to calculate natural log for, default is all rows.
+	Rows beyond ni will be zero filled.
+   
     Returns
     -------
-    result : array, 2D
-        Resulting array after multiplying each a(i,j) * const
+    result : array, 2D, float32
+        Resulting array after multiplying each element in a by const.
+        Will have the same shape as a.
 
     Notes
     -----
-    Input array values > 1.e36 return 1.e37 in return array
+    Input array values > 1.e36 return 1.e37 in return array.
 
     Examples
     --------
     >>> import asolib
-    >>> aoslib.multbycnst([[1,360],[-1, 5.e36]],3)
+    >>> aoslib.mult_by_cnst([[1,360],[-5.e36, 5.e36]],3)
     array([[  3.00000000e+00,   1.08000000e+03],
-           [ -3.00000000e+00,   9.99999993e+36]], dtype=float32)
+           [ -1.50000005e+37,   9.99999993e+36]], dtype=float32)
 
     """
     return _awips.mult_by_cnst(a,const, **kwargs)
@@ -1079,18 +1073,22 @@ def mult_by_cnst(a, const, **kwargs):
 
 def natlog(a, **kwargs):
     """
-    Calculates the natural log of a field. b = ln(a).
+    Calculates the natural log of a field. 
+    b = ln(a).
 
     Parameters
     ----------
-    a : 2D input array
+    a : array_like, 2D
+	Input array.
     ni : int, optional
-         Number of rows to calculate natural log for, default is all rows.
-    
+        Number of rows to calculate natural log for, default is all rows.
+        Rows beyond ni will be zero filled.
+
     Returns
     -------
-    b : array, 2D
-        Natural log of input array, a
+    b : array, 2D, float32
+        Natural log of each element in input array, a.
+        Will have the same shape as a.
 
     Notes
     -----
@@ -1112,16 +1110,12 @@ def powercalc(a, b, **kwargs):
     Raise each item in the field a to the power in field b.
     result = a**b.
 
-    History
-    -------
-    J Ramer Jun 95
-
     Parameters
     ----------
     a : array_like, 2D
-        Base array.
+        Array holding bases.
     b : array_like, 2D
-        Exponent array.
+        Array holding exponents.
     ni : int, optional
         Number of rows to raise to given power, default is all rows.
 
@@ -1137,7 +1131,6 @@ def powercalc(a, b, **kwargs):
     2) Zero raised to zero returns zero.
     3) Zero raised to negative value returns flag value 1.e37.
     4) Negative value raised to fraction returns flag value 1.e37.
-    5) Calls jint(arg) function from IntrinsicFunctions.inc.
  
     Examples
     --------
