@@ -157,15 +157,15 @@ python module _awips ! in
             real dimension(mni,nj), intent(out) :: q
         end subroutine spechum
         subroutine richno(ht,hw,uw,vw,rho,nlvls,nw,buoy,richnum) ! in :_aoslib:BulkRichNo.f
-            real dimension(nlvls) :: ht
-            real dimension(nw) :: hw
-            real dimension(nw),depend(nw) :: uw
-            real dimension(nw),depend(nw) :: vw
-            real dimension(nlvls),depend(nlvls) :: rho
-            integer, optional,check(len(ht)>=nlvls),depend(ht) :: nlvls=len(ht)
-            integer, optional,check(len(hw)>=nw),depend(hw) :: nw=len(hw)
-            real :: buoy
-            real :: richnum
+            real dimension(nlvls), intent(in) :: ht
+            real dimension(nw), intent(in) :: hw
+            real dimension(nw),depend(nw), intent(in) :: uw
+            real dimension(nw),depend(nw), intent(in) :: vw
+            real dimension(nlvls),depend(nlvls), intent(in) :: rho
+            integer, optional,check(len(ht)>=nlvls),depend(ht), intent(hide) :: nlvls=len(ht)
+            integer, optional,check(len(hw)>=nw),depend(hw), intent(hide) :: nw=len(hw)
+            real, intent(in) :: buoy
+            real, intent(out) :: richnum
         end subroutine richno
         function dzdlnp(p,t,td) ! in :_aoslib:dzdlnp.f
             real*4 intent(in) :: p
@@ -1275,10 +1275,10 @@ python module _awips ! in
             real*4 intent(out) :: ztopsa
         end function ztopsa
         subroutine density(p,tvir,nlvls,rho) ! in :_aoslib:density.f
-            real dimension(nlvls) :: p
-            real dimension(nlvls),depend(nlvls) :: tvir
-            integer, optional,check(len(p)>=nlvls),depend(p) :: nlvls=len(p)
-            real dimension(nlvls),depend(nlvls) :: rho
+            real dimension(nlvls), intent(in) :: p
+            real dimension(nlvls),depend(nlvls), intent(in) :: tvir
+            integer, optional,check(len(p)>=nlvls),depend(p), intent(hide) :: nlvls=len(p)
+            real dimension(nlvls),depend(nlvls), intent(out) :: rho
         end subroutine density
 
         subroutine lintrans(a,mult,add,result,mni,ni,nj) ! in :_aoslib:lintrans.f
